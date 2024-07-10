@@ -1,0 +1,16 @@
+.separator-container {
+    width: 100%;
+    height: 1rem; /* Total height of the separator */
+    background-color: var(--gray); /* Background color for the separator */
+    position: relative;
+  }
+  
+  .separator-stripe {
+    width: 100%;
+    height: 0.25rem; /* Height of the orange stripe */
+    background-color: var(--orange); /* Use the CSS variable for the orange color */
+    position: absolute;
+    top: 50%; /* Position it in the center vertically */
+    transform: translateY(-50%); /* Adjust for the height of the stripe */
+  }
+  

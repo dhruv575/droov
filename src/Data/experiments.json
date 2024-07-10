@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Word Hunt Solver",
+        "desc": "I got really really tired of losing every game of Word Hunt I played. Now that I cheat, I've never lost again.",
+        "tech": ["Java"],
+        "tiktok": "https://www.tiktok.com/@droov.gupta/video/7382278936450944286",
+        "link": "https://drive.google.com/drive/folders/17aM2LVa4l1eMdk4q3UXXLINpWd9mj1F5?usp=sharing",
+        "image": "/images/experiments/gamepigeon.png"
+    },
+    {
+        "name": "Quizzler",
+        "desc": "I cloned Quizlet except I used GPT too and it's cool but it's really probably not as good as the main one.",
+        "tech": ["React", "OpenAI API", "File IO", "MongoDB"],
+        "tiktok": "https://www.tiktok.com/@droov.gupta/video/7379426333815803167",
+        "link": "https://github.com/dhruv575/quizzler",
+        "image": "/images/experiments/quizzler.jpg"
+    },
+    {
+        "name": "Wharton GRC",
+        "desc": "Needed to get sponsors so we could have money for the party budget so made a website.",
+        "tech": ["React"],
+        "tiktok": null,
+        "link": "https://www.whartongrc.org/",
+        "image": "/images/experiments/grcweb.jpg"
+    }
+]

@@ -1,0 +1,41 @@
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--gray);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0.5, 0.5, 0.5, 0.3);
+  font-family: "Poppins", sans-serif;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+}
+
+.footer-logo img {
+  height: 2rem;
+  margin-right: 0.5rem;
+}
+
+.footer-middle {
+  font-size: 0.9rem;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9rem;
+}
+
+.footer-icon {
+  color: white;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: var(--orange); /* Change to desired hover color */
+}

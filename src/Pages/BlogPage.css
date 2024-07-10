@@ -1,0 +1,46 @@
+.blog-page-wrapper {
+    margin: 0;
+    padding: 2rem 25%;
+    background-color: black;
+    color: white;
+    padding-top: 10rem;
+  }
+  
+  @media (max-width: 768px) {
+    .blog-page-wrapper {
+      padding: 1rem 5%;
+      padding-top: 6rem;
+    }
+  }
+  
+  .blog-title {
+    text-align: left;
+    font-size: 2rem;
+    color: var(--orange);
+  }
+
+  .blog-content {
+    text-align: center;
+  }
+
+  .blog-image {
+    width: 100%;
+    margin: 1rem 0;
+    border-radius: 10px;
+  }
+  
+  .blog-subtitle {
+    font-size: 1.2rem;
+    color: gray;
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  
+    .blog-text {
+      text-align: left;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin-bottom: 2rem;
+    }
+  

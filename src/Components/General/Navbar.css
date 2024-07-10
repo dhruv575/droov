@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem;
+  position: fixed;
+  width: 80%;
+  top: 4%;
+  left: 10%;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  border-radius: 1rem;
+  z-index: 1000;
+  background-color: rgba(200, 200, 200, 0.7);
+}
+
+.navbar.scrolled {
+  background-color: rgba(140, 140, 140, 1);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.5);
+  transform: scale(0.9);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 3rem;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: var(--orange);
+  font-size: 16px;
+  margin-left: 1.5rem;
+}
+
+.navbar-link:first-child {
+  margin-left: 0;
+}
+
+.navbar-link:hover {
+  color: #a9a9a9;
+}
+
+.signup-button, .login-button, .dashboard-button, .logout-button {
+  background-color: maroon;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 1.5rem;
+}
+
+.signup-button:hover, .login-button:hover, .dashboard-button:hover, .logout-button:hover {
+  background-color: brown;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0;
+    background-color: rgba(200, 200, 200, 0.7); /* Ensure consistent background color */
+    box-shadow: none; /* Remove box-shadow on scroll */
+    transform: none; /* Remove transform effect on scroll */
+  }
+
+  .navbar.scrolled {
+    background-color: rgba(200, 200, 200, 0.7); /* Ensure consistent background color */
+    box-shadow: none; /* Remove box-shadow on scroll */
+    transform: none; /* Remove transform effect on scroll */
+  }
+
+  .logo {
+    height: 2.5rem;
+  }
+
+  .navbar-link, .signup-button, .login-button, .dashboard-button, .logout-button {
+    font-size: 14px;
+    margin-left: 1rem;
+    padding: 6px 12px;
+  }
+
+  .navbar-right {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 2rem;
+  }
+}

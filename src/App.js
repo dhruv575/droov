@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './Components/General/Navbar';
+import Footer from './Components/General/Footer';
+import Home from './Pages/Home';
+import BlogPage from './Pages/BlogPage';
+import BlogList from './Pages/BlogList';
+import NewsletterPage from './Pages/NewsletterPage'; // Import the NewsletterPage component
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blog/:title" element={<BlogPage />} />
+        <Route path="/blog" element={<BlogList />} />
+        <Route path="/newsletter" element={<NewsletterPage />} /> {/* Add the NewsletterPage route */}
+      </Routes>
+      <Footer />
+    </Router>
   );
 }
 

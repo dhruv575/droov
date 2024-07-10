@@ -1,0 +1,144 @@
+.experiments-grid-wrapper {
+    margin: 0;
+    background-color: black;
+    padding: 1rem 0;
+  }
+  
+  .title {
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .experiments-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .experiments-grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .experiments-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .experiment-container {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin: 1rem;
+    background-color: var(--gray);
+    text-align: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.8;
+  }
+  
+  .experiment-container:hover {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+  
+  .experiment-logo {
+    height: 10rem;
+    width: auto;
+    margin-bottom: 0.5rem;
+  }
+  
+  .experiment-name {
+    margin-top: 1rem;
+    color: #fff;
+  }
+  
+  .experiment-description {
+    font-size: 0.9rem;
+    color: #fff;
+  }
+  
+  .experiment-tech {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0.5rem 0.5rem;
+  }
+  
+  .tech-tag {
+    background-color: #f0f0f0;
+    color: #333;
+    padding: 0.25rem 0.5rem;
+    margin: 0.25rem;
+    border-radius: 5px;
+    font-size: 0.75rem;
+  }
+  
+  .experiment-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  
+  .experiment-icon {
+    color: var(--orange);
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+  }
+  
+  .experiment-icon:hover {
+    color: #ff6600;
+  }
+  
+  @media (max-width: 768px) {
+    .experiment-container {
+      padding: 1rem;
+      margin: 0.5rem 1rem;
+    }
+  
+    .experiment-logo {
+      height: 8rem;
+    }
+  
+    .experiment-description {
+      font-size: 0.8rem;
+    }
+  
+    .tech-tag {
+      padding: 0.2rem 0.4rem;
+      font-size: 0.7rem;
+    }
+  
+    .experiment-icon {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .experiment-container {
+      padding: 0.75rem;
+      margin: 0.25rem;
+    }
+  
+    .experiment-logo {
+      height: 6rem;
+    }
+  
+    .experiment-description {
+      font-size: 0.7rem;
+    }
+  
+    .tech-tag {
+      padding: 0.15rem 0.3rem;
+      font-size: 0.65rem;
+    }
+  
+    .experiment-icon {
+      font-size: 1rem;
+    }
+  }
+  
