@@ -133,17 +133,24 @@
   }
 
   /* Mobile search results (when in bottom input bar) */
+  .mobile-input-container .search-wrapper {
+    position: relative;
+  }
+
   .mobile-input-container .search-results {
-    max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 250px);
     position: fixed;
     top: auto;
-    bottom: 80px;
+    bottom: 90px;
     left: 0.75rem;
     right: 0.75rem;
     max-width: calc(100vw - 1.5rem);
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
     border-radius: 1rem 1rem 0 0;
-    z-index: 1000;
+    z-index: 1001;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    display: block !important;
   }
 
   .search-result-item {

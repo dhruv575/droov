@@ -5,6 +5,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background-color: #212121;
+}
+
+html {
+  overflow-x: hidden;
+  background-color: #212121;
+}
+
+#root {
+  overflow-x: hidden;
+  background-color: #212121;
 }
 
 code {

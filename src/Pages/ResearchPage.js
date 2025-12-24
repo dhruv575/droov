@@ -3,13 +3,19 @@ import { HiOutlineArrowDown, HiOutlineMenu } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import ChatMessage from '../Components/Chat/ChatMessage';
 import Sidebar from '../Components/General/Sidebar';
+import { useIsMobile } from '../hooks/useIsMobile';
 import researchData from '../Data/research.json';
 import './ResearchPage.css';
 
 const ResearchPage = () => {
   const chatEndRef = useRef(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const isMobile = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });

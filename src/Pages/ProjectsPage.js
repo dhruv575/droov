@@ -3,13 +3,19 @@ import { HiOutlineArrowDown, HiOutlineMenu } from 'react-icons/hi';
 import { FaTiktok, FaExternalLinkAlt } from 'react-icons/fa';
 import ChatMessage from '../Components/Chat/ChatMessage';
 import Sidebar from '../Components/General/Sidebar';
+import { useIsMobile } from '../hooks/useIsMobile';
 import dataProjects from '../Data/dataProjects.json';
 import './ProjectsPage.css';
 
 const ProjectsPage = () => {
   const chatEndRef = useRef(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const isMobile = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });

@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Typewriter from '../Components/Typewriter';
 import Sidebar from '../Components/General/Sidebar';
 import SearchBar from '../Components/Search/SearchBar';
+import { useIsMobile } from '../hooks/useIsMobile';
 import { 
   HiOutlineMenu
 } from 'react-icons/hi';
 import './NewHome.css';
 
 const NewHome = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const isMobile = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   return (
     <div className="new-home">

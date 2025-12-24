@@ -2,12 +2,18 @@ import React, { useRef, useEffect, useState } from 'react';
 import { HiOutlineArrowDown, HiOutlineMenu } from 'react-icons/hi';
 import ChatMessage from '../Components/Chat/ChatMessage';
 import Sidebar from '../Components/General/Sidebar';
+import { useIsMobile } from '../hooks/useIsMobile';
 import './NotFoundPage.css';
 
 const NotFoundPage = () => {
   const chatEndRef = useRef(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const isMobile = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });

@@ -10,9 +10,20 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
   const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [isMobile, setIsMobile] = useState(false);
   const searchRef = useRef(null);
   const resultsRef = useRef(null);
   const navigate = useNavigate();
+
+  // Detect mobile and handle viewport changes
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Resume content - extracted from ResumePage
   const resumeContent = {
@@ -131,6 +142,16 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
     setSelectedIndex(-1);
   };
 
+  const handleInputFocus = (e) => {
+    setShowResults(true);
+    // On mobile, scroll input into view after a short delay to account for keyboard
+    if (isMobile && searchRef.current?.closest('.mobile-input-container')) {
+      setTimeout(() => {
+        e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 300);
+    }
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
@@ -193,7 +214,7 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
           value={searchQuery}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          onFocus={() => setShowResults(true)}
+          onFocus={handleInputFocus}
         />
       </div>
       {showResults && results.length > 0 && (

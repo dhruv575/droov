@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import chatsData from '../Data/chats.json';
 import researchData from '../Data/research.json';
 import Sidebar from '../Components/General/Sidebar';
+import { useIsMobile } from '../hooks/useIsMobile';
 import { HiOutlineMenu } from 'react-icons/hi';
 import './ChatPage.css';
 
@@ -14,7 +15,12 @@ const ChatPage = () => {
   const dataSource = isResearch ? researchData : chatsData;
   const chat = dataSource.find((item) => item.title.replace(/\s+/g, '-').toLowerCase() === title);
   const [markdownContent, setMarkdownContent] = useState('');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const isMobile = useIsMobile();
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

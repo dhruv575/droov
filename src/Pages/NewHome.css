@@ -7,6 +7,7 @@
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   overflow-x: hidden;
+  position: relative;
 }
 
 .layout-container {
@@ -320,6 +321,11 @@
     z-index: 100;
     max-width: 100vw;
     box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .mobile-input-bar .mobile-input-container {
+    pointer-events: auto;
   }
 
   .mobile-input-container {
@@ -332,14 +338,8 @@
   /* Ensure search results appear above mobile input bar */
   .mobile-input-container .search-wrapper {
     width: 100%;
-  }
-
-  .mobile-input-container .search-results {
-    bottom: calc(100% + 0.5rem);
-    top: auto;
-    left: 0;
-    right: 0;
-    max-width: 100%;
+    position: relative;
+    z-index: 1001;
   }
 
   .mobile-input::placeholder {
