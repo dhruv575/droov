@@ -87,7 +87,7 @@ const ChatsPage = () => {
               {sortedChats.map((chat, index) => (
                 <Link 
                   key={index} 
-                  to={`/chats/${chat.title.replace(/\s+/g, '-').toLowerCase()}`}
+                  to={`/chats/${(chat.chatTitle || chat.title).replace(/\s+/g, '-').toLowerCase()}`}
                   className="chat-card"
                 >
                   <div className="chat-card-content">

@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { HiOutlineArrowDown, HiOutlineMenu } from 'react-icons/hi';
-import { FaTiktok, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaTiktok, FaExternalLinkAlt, FaVideo, FaFileAlt } from 'react-icons/fa';
 import ChatMessage from '../Components/Chat/ChatMessage';
 import Sidebar from '../Components/General/Sidebar';
 import { useIsMobile } from '../hooks/useIsMobile';
-import dataProjects from '../Data/dataProjects.json';
+import projectsData from '../Data/projects.json';
 import './ProjectsPage.css';
 
 const ProjectsPage = () => {
@@ -81,7 +81,7 @@ const ProjectsPage = () => {
             <ChatMessage role="assistant" content={introMessage} />
 
             <div className="projects-grid">
-              {dataProjects.map((project, index) => (
+              {projectsData.map((project, index) => (
                 <div key={index} className="project-card">
                   <div className="project-card-content">
                     <div className="project-image-container">
@@ -97,24 +97,50 @@ const ProjectsPage = () => {
                       </div>
                     </div>
                     <div className="project-links">
-                      <a 
-                        href={project.tiktok} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="project-link"
-                        aria-label="View on TikTok"
-                      >
-                        <FaTiktok className="project-icon" />
-                      </a>
-                      <a 
-                        href={project.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="project-link"
-                        aria-label="View project"
-                      >
-                        <FaExternalLinkAlt className="project-icon" />
-                      </a>
+                      {project.tiktok && (
+                        <a 
+                          href={project.tiktok} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="project-link"
+                          aria-label="View on TikTok"
+                        >
+                          <FaTiktok className="project-icon" />
+                        </a>
+                      )}
+                      {project.video && (
+                        <a 
+                          href={project.video} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="project-link"
+                          aria-label="View video"
+                        >
+                          <FaVideo className="project-icon" />
+                        </a>
+                      )}
+                      {project.prd && (
+                        <a 
+                          href={project.prd} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="project-link"
+                          aria-label="View PRD"
+                        >
+                          <FaFileAlt className="project-icon" />
+                        </a>
+                      )}
+                      {project.link && (
+                        <a 
+                          href={project.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="project-link"
+                          aria-label="View project"
+                        >
+                          <FaExternalLinkAlt className="project-icon" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>

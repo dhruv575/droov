@@ -1,11 +1,19 @@
 [
     {
-        "title": "Prediction Markets Research Placeholder",
-        "chatTitle": "Research Placeholder",
-        "image": "/images/dataProjects/debate.jpg",
-        "description": "This is a placeholder for prediction markets research content.",
-        "file": "/content/placeholder.md",
-        "date": "1/1/25"
+        "title": "PolyVideo - Retrospective Analysis on changes in markets during live showings",
+        "chatTitle": "PolyVideo",
+        "image": "/images/experiments/polyvid.jpg",
+        "description": "A tool that allows users to view youtube videos and market odds side by side; see exactly when the probability of the supreme court striking down Trump's policy spiked during a hearing liverstream",
+        "file": "/content/polyvideo.md",
+        "date": "11/1/25"
+    },
+    {
+        "title": "PolyCorr - Find and test correlations between equities and markets",
+        "chatTitle": "PolyCorr",
+        "image": "/images/experiments/polycorr.jpg",
+        "description": "A tool to specify a market and timeframe, have LLMs identify equities that should be closely directly and inversely correlated, and then test those relationships.",
+        "file": "/content/polycorr.md",
+        "date": "11/8/25"
     }
 ]
 

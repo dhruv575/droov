@@ -1,8 +1,8 @@
-## The Background: Don Toliver
+### The Background: Don Toliver
 
 Don Toliver is my favorite artist. Has been for a couple years now. So, as you can guess, I was pretty estatic when he dropped a new album. I was even more estatic when Don chose to canonize my favorite Travis Scott unreleased (technically?) song *Drugs You Should Try It* as a sample in his song *5 to 10*. This really got me thinking about what specifically about this song I enjoyed though. Was there something in the tone? Something in the lyrics? More generally, was there a way for artists to predict which of their songs would perform better with their fan bases?
 
-## The Problem: Noisy Data
+### The Problem: Noisy Data
 
 It is every data scientist's dream to be handed a neat and orderly csv file. The world hardly ever obliges. In this case I had several potential data considerations.
 - Where would I get a catalog of songs?
@@ -28,7 +28,7 @@ In the end, I came to the conclusion that
 3. I would use Genius for getting the lyrics. It seemed to me that downloading and handling 30 MP3 files per artist would be quite a difficult task
 4. I used Perplexity AI to generate a list of quantitative factors I could solve for with just the lyrics.
 
-## The Solution: Part 1, Soundcloud and Genius
+### The Solution: Part 1, Soundcloud and Genius
 ![Not Like Us](https://i.ibb.co/FVfv1G2/kendrick.jpg, "Not Like Us")
 
 Soundcloud's platform was pretty great for this project, including the name of the song as well as the number of streams in the same box! Made my life a lot easier. I used some quick selenium code to extract the necessary information.
@@ -79,7 +79,7 @@ def fetch_lyrics(genius_link):
         return "Lyrics not found"
 ```
 
-## The Solution: Part 2, Data Cleaning
+### The Solution: Part 2, Data Cleaning
 
 Now that we had the song name, lyrics, and streams, we had to create some more features which could be used to help identify what exactly made a Travis Scott song good. The first thing I wanted to do was make sure the lyrics were just the raw lyrics and remove all additional tags (i.e. "Chorus", "Ft. Don Toliver"). To do this, we simply remove anything wrapped in square brackets, and also take this as a chance to identify how many features we have on the track.
 
@@ -186,7 +186,7 @@ analysis_df = pd.DataFrame(analysis_results.tolist())
 processed_travis_df = pd.concat([travis_df, analysis_df], axis=1)
 ```
 
-## The Solution: Part 3, Data Visualization
+### The Solution: Part 3, Data Visualization
 
 With cleaned data in hand an array of potential features we could analyze, it's time to actually start modelling. The first thing to try and do is use a Correlation Matrix to identify the relationships between several variables and streams, and see if anything sticks out
 ```
@@ -212,7 +212,7 @@ I also went in and scraped data for a few other artists (namely Taylor Swift and
 
 ![Taylor vs Travis](https://i.ibb.co/CKP0p0W/taylor-vs-travis.png, "Taylor vs Travis")
 
-## The Aftermath: Tons of Limitations
+### The Aftermath: Tons of Limitations
 
 Currently, I'm not super happy with how this project turned out. I would love to have been able to actually somehow have the song audio be analyzed, but I think I need more experience before I'm able to implement a workflow like that. My only current thought for how I could do that would be having to manually find and grab every mp3 file, then feeding them to ChatGPT and having it analyze them, which does not scream efficiencey to me.
 

@@ -18,7 +18,7 @@ import {
 import logo from './logo-rect.png';
 import chatsData from '../../Data/chats.json';
 import researchData from '../../Data/research.json';
-import projectsData from '../../Data/dataProjects.json';
+import projectsData from '../../Data/projects.json';
 import './Sidebar.css';
 
 // Simple X (Twitter) icon component
@@ -150,7 +150,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                   const displayTitle = chatTitle.length > 25 
                     ? chatTitle.substring(0, 23) + '..' 
                     : chatTitle;
-                  const chatPath = `/chats/${chat.title.replace(/\s+/g, '-').toLowerCase()}`;
+                  const chatPath = `/chats/${(chat.chatTitle || chat.title).replace(/\s+/g, '-').toLowerCase()}`;
                   const isActive = location.pathname === chatPath;
                   return (
                     <Link 
@@ -184,7 +184,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
                   const displayTitle = researchTitle.length > 25 
                     ? researchTitle.substring(0, 23) + '..' 
                     : researchTitle;
-                  const researchPath = `/research/${research.title.replace(/\s+/g, '-').toLowerCase()}`;
+                  const researchPath = `/research/${(research.chatTitle || research.title).replace(/\s+/g, '-').toLowerCase()}`;
                   const isActive = location.pathname === researchPath;
                   return (
                     <Link 

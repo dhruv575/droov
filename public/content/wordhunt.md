@@ -1,4 +1,4 @@
-## The Background: Pokemon Planet 
+### The Background: Pokemon Planet 
 
 I'm at a pretty competitive person. I enjoy winning. Perhaps I take the pursuit of victory too far sometimes. 
 
@@ -8,7 +8,7 @@ In 11th grade I used to be obsessed with this game called Pokémon Planet (recen
 
 After a bit of experimentation, I coded a simple engine that could take any phrase and return the unscrambled Pokémon. It was quite a fun little concept and while I did win almost every Pokémon Unscramble contest I competed in since then (don't worry I would never accept the prizes), this wasn't exactly something I could show off to my friends
 
-## The Problem: Word Hunt
+### The Problem: Word Hunt
 
 Game Pigeon's Word Hunt, on the other hand, was a game I had *absolutely no* natural aptitude for. I would regularly get hammered by my friends. I have no idea why I was so bad at this game in particular. I wanted to fix that too though, so I decided to cheat again.
 
@@ -16,7 +16,7 @@ This attempt at cheating, however, was quite a bit harder than the previous ones
 
 It took me a long time. I screwed up a lot. I had to invent recursion. Eventually I got it though! So let's talk about the infrastructure.
 
-## The Solution: Part 1, Naive Approach
+### The Solution: Part 1, Naive Approach
 
 ![Word Hunt Example Grid](https://i.ibb.co/Pj5Sx0B/wh.jpg "Word Hunt Example Grid")
 
@@ -24,7 +24,7 @@ Consider the 4 x 4 grid. Each letter has at least 3 and at most 8 neighbors. Let
 
 I decided to run the code real quick. In total, you create 
 
-## The Solution: Part 2, The Algorithm
+### The Solution: Part 2, The Algorithm
 
 I knew that right away, I needed to significantly lower the number of comparisons from both sides. This meant I needed to be searching through less possibilties, and comparing with less words.
 
@@ -34,7 +34,7 @@ Therefore, I decided to think about it at a smaller level. If I was manually doi
 
 By implementing this algorithm, you are able to significanly reduce the amount of time your code takes. 
 
-## The Solution: Part 3, Presentation
+### The Solution: Part 3, Presentation
 
 Believe it or not, it only took 84 lines of code to implement the algorithm above. However, at this point, I was just printing all the words ordered by size. This did not make for a particularly efficient experience for me while using it, so I decided that once the words were found, I would organize them by the same roots (i.e. same first 3 letters) and then order the roots by points, so that users could find a root, exhaust it, then move on the next most profitable one. Here are the results from running the Word Hunt Solver on the board above.
 
@@ -87,7 +87,7 @@ Believe it or not, it only took 84 lines of code to implement the algorithm abov
 [haps, hapten, haptene, haptens]
 ```
 
-## The Aftermath: AP CS A
+### The Aftermath: AP CS A
 
 Around 3 months or so after finishing this code, I had to take the AP Computer Science A exam. In the intermediate time, I hardly studies the Barron's textbook at all. Instead, I put my time into writing pretty code that solved more interesting problems for me. I'd soon coded cheats for Wordle, the classic Scrabble, and several other games and variants (my favorite perhaps being for Kilordle, a crazy Wordle variant that I believe is still unsolved).
 

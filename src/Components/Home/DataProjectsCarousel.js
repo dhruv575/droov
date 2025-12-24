@@ -1,8 +1,8 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { FaTiktok, FaExternalLinkAlt } from 'react-icons/fa';
-import dataProjects from '../../Data/dataProjects.json';
+import { FaTiktok, FaExternalLinkAlt, FaVideo, FaFileAlt } from 'react-icons/fa';
+import projectsData from '../../Data/projects.json';
 import './DataProjectsCarousel.css';
 
 const responsive = {
@@ -42,7 +42,7 @@ const DataProjectsCarousel = () => {
         dotListClass="custom-dot-list-style"
         showDots={true}
       >
-        {dataProjects.map((project, index) => (
+        {projectsData.map((project, index) => (
           <div key={index} className="project-container">
             <img src={project.image} alt={project.name} className="project-logo" />
             <h3 className="project-name">{project.name}</h3>
@@ -53,12 +53,26 @@ const DataProjectsCarousel = () => {
               ))}
             </div>
             <div className="project-links">
-              <a href={project.tiktok} target="_blank" rel="noopener noreferrer">
-                <FaTiktok className="project-icon" />
-              </a>
-              <a href={project.link} target="_blank" rel="noopener noreferrer">
-                <FaExternalLinkAlt className="project-icon" />
-              </a>
+              {project.tiktok && (
+                <a href={project.tiktok} target="_blank" rel="noopener noreferrer">
+                  <FaTiktok className="project-icon" />
+                </a>
+              )}
+              {project.video && (
+                <a href={project.video} target="_blank" rel="noopener noreferrer">
+                  <FaVideo className="project-icon" />
+                </a>
+              )}
+              {project.prd && (
+                <a href={project.prd} target="_blank" rel="noopener noreferrer">
+                  <FaFileAlt className="project-icon" />
+                </a>
+              )}
+              {project.link && (
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  <FaExternalLinkAlt className="project-icon" />
+                </a>
+              )}
             </div>
           </div>
         ))}

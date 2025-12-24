@@ -87,7 +87,7 @@ const ResearchPage = () => {
               {sortedResearch.map((research, index) => (
                 <Link 
                   key={index} 
-                  to={`/research/${research.title.replace(/\s+/g, '-').toLowerCase()}`}
+                  to={`/research/${(research.chatTitle || research.title).replace(/\s+/g, '-').toLowerCase()}`}
                   className="research-card"
                 >
                   <div className="research-card-content">

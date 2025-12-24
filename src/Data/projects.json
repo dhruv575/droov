@@ -1,0 +1,63 @@
+[
+    {
+        "name": "Enflow",
+        "desc": "System that allows police departments to build documentation workflows that they can automatically fill out through keyword extraction on daily logs via LLMs",
+        "tech": ["React", "Python", "OpenAI API", "Parallelization through Redis", "HuggingFace"],
+        "video": "https://drive.google.com/file/d/1E5m896hOm0O4y7nmx_PkjhfrjvA7h8Ss/view?usp=sharing",
+        "link": "https://www.tryenflow.com/",
+        "image": "/images/projects/enflowDemoPic.jpg"
+    },
+    {
+        "name": "Traffic Simulation",
+        "desc": "Traffic Simulation modeling 34th and Spruce St in Philadelphia and displaying the reduction in traffic violations caused by addition of speed bumps and traffic cameras",
+        "tech": ["React"],
+        "video": "https://drive.google.com/file/d/15a9ZroGOL1GnWAXxoOiAhluw4a7I2HSH/view?usp=sharing",
+        "link": "https://trafficsim.vercel.app/",
+        "image": "/images/projects/trafficSimDemoPic.jpg"
+    },
+    {
+        "name": "Highs and Lows",
+        "desc": "A social media app to track the highs, lows, and ratings per day of you and your buddies. Inspired by a Hack4Impact tradition.",
+        "tech": ["React"],
+        "prd": "https://docs.google.com/document/d/1ofIfslKE9IeGedqMm0sfarvPtYtd_K-n3HIBffgLAgU/edit?usp=sharing",
+        "link": "https://www.handl.club/",
+        "image": "/images/projects/handlDemoPic.jpg"
+    },
+    {
+        "name": "Squirrels without Morality",
+        "desc": "Bringing Penn's favorite (and only) Cards against Humanity clone to the world wide web in both single player and multiplayer modes.",
+        "tech": ["React", "Web Socket"],
+        "link": "https://www.swithoutm.com/",
+        "image": "/images/projects/swmDemoPic.jpg"
+    },
+    {
+        "name": "PennBTI",
+        "desc": "An MBTI test built only with Penn-related questions + a matching feature (because what kind of founder would I be if I didn't try my hand at dating apps)",
+        "tech": ["React"],
+        "link": "https://www.pennbti.com/",
+        "image": "/images/projects/pennbtiDemoPic.jpg"
+    },
+    {
+        "name": "PRDucer",
+        "desc": "Developed for the Wharton School's Executive MBA classes. A step-by-step LLM assisted walkthrough of creating a technically sound PRD that can be given to Cursor, Claude Code, or any other AI assisted tool.",
+        "tech": ["React", "OpenAI API"],
+        "link": "https://prducer.vercel.app/",
+        "image": "/images/projects/prducerDemoPic.jpg"
+    },
+    {
+        "name": "Presidential Debate Data",
+        "desc": "Using the transcript to analyze the lexical, tonal, and topical patterns of the first Presidential debate of 2024!",
+        "tech": ["Regex", "TextBlob"],
+        "tiktok": "https://www.tiktok.com/@droov.gupta/video/7385624907767368990",
+        "link": "https://colab.research.google.com/drive/1T7K6D2nUTs7-6A1_D4omn1tShRpML5Te?usp=sharing",
+        "image": "/images/projects/debate.jpg"
+    },
+    {
+        "name": "Analyzing Music",
+        "desc": "A combination of some Soundcloud & Genius scraping and a bit of Textblob to analyze what each artist's audeince values!",
+        "tech": ["Selenium", "Textblob"],
+        "tiktok": "https://www.tiktok.com/@droov.gupta/video/7386451081515093279",
+        "link": "https://colab.research.google.com/drive/1iG9vKnN3cNScm80KOt6RIKaMwDlAUaW8?usp=sharing",
+        "image": "/images/projects/music.jpg"
+    }
+]

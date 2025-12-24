@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import projectsData from '../../Data/dataProjects.json';
+import projectsData from '../../Data/projects.json';
 import chatsData from '../../Data/chats.json';
 import researchData from '../../Data/research.json';
 import './SearchBar.css';
@@ -174,9 +174,9 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
     } else if (item.type === 'project') {
       window.open(item.link, '_blank', 'noopener,noreferrer');
     } else if (item.type === 'chat') {
-      navigate(`/chats/${item.title.replace(/\s+/g, '-').toLowerCase()}`);
+      navigate(`/chats/${(item.chatTitle || item.title).replace(/\s+/g, '-').toLowerCase()}`);
     } else if (item.type === 'research') {
-      navigate(`/research/${item.title.replace(/\s+/g, '-').toLowerCase()}`);
+      navigate(`/research/${(item.chatTitle || item.title).replace(/\s+/g, '-').toLowerCase()}`);
     }
     setShowResults(false);
     setSearchQuery('');

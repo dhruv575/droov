@@ -154,7 +154,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #8e8ea0;
+  color: #ececf1;
   margin-top: 0.25rem;
   padding-top: 0.75rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -165,6 +165,7 @@
 }
 
 .view-all-text {
+  font-weight: bold;
   font-style: italic;
 }
 
