@@ -30,8 +30,8 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-right">
-        <a href="/blog" className="navbar-link">
-          Blog
+        <a href="/chats" className="navbar-link">
+          Chats
         </a>
         <a href="/newsletter" className="navbar-link">
           Newsletter

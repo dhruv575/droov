@@ -1,0 +1,1 @@
+I'd say I was quite a sheltered high schooler. I rarely left Fremont CA barely even travelling the half hour up to places like Berkeley or San Fransisco. At the same time though I've always considered myself quite independent. 

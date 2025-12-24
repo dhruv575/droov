@@ -1,0 +1,35 @@
+[
+    {
+        "title": "Building the Ultimate College Data Dashboard",
+        "chatTitle": "College Data Dashboard",
+        "image": "/images/dataProjects/ivy.png",
+        "description": "Using a bunch of technology to ensure that all future students would have easy access to the data I had to seach through so many annoying files and websites for when I applied.",
+        "file": "/content/collegedata.md" ,
+        "date": "7/7/24"
+    },
+    {
+        "title": "Solving Word Hunt to get a perfect score on AP Computer Science A",
+        "chatTitle": "Word Hunt Solver",
+        "image": "/images/experiments/gamepigeon.png",
+        "description": "How my introduction into computer science came from losing too much Game Pigeon, and why I think this is the perfect starter project for budding computer scientists.",
+        "date": "7/8/24",
+        "file": "/content/wordhunt.md"
+    },
+    {
+        "title": "What Applying to 30 Colleges taught me about the College Application Process",
+        "chatTitle": "College Applications",
+        "image": "/images/blogs/collegeapps.jpg",
+        "description": "Over the past year I've really had the chance to think about the intecracies of the college application process. Here's my general thoughts about it and the direction it's going in.",
+        "date": "7/6/24",
+        "file": "/content/collegeapps.md" 
+    },
+    {
+        "title": "What makes a great Travis Scott Song",
+        "chatTitle": "Travis Scott Music",
+        "image": "/images/dataProjects/music.jpg",
+        "description": "On Hardstone Psycho Don Toliver sampled from 'Drugs You Should Try It,' my favorite Travis Scott song. That got me thinking, what actually makes that my favorite Travis Scott song?",
+        "date": "7/9/24",
+        "file": "/content/music.md"
+    }
+]
+

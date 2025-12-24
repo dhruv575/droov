@@ -1,0 +1,113 @@
+.chat-message {
+  padding: 1.5rem 0;
+}
+
+.chat-message-content {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+}
+
+.user-message {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.assistant-message {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.user-message .message-text {
+  background-color: #303030;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  color: #ececf1;
+  line-height: 1.5;
+  font-size: 0.9375rem;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.assistant-message .message-text {
+  flex: 1;
+  color: #d1d5db;
+  line-height: 1.75;
+  font-size: 0.9375rem;
+  padding-top: 0.25rem;
+  width: 100%;
+}
+
+.message-text p {
+  margin: 0 0 1rem 0;
+}
+
+.message-text p:last-child {
+  margin-bottom: 0;
+}
+
+.message-text ul,
+.message-text ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.message-text li {
+  margin: 0.25rem 0;
+}
+
+.message-text strong {
+  font-weight: 600;
+  color: #ececf1;
+}
+
+.message-text a {
+  color: #5170FF;
+  text-decoration: underline;
+  text-decoration-color: rgba(81, 112, 255, 0.3);
+}
+
+.message-text a:hover {
+  text-decoration-color: #5170FF;
+}
+
+.message-text code {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: 'Courier New', monospace;
+}
+
+.message-text pre {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.message-text pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .chat-message-content {
+    padding: 0 0.75rem;
+  }
+
+  .user-message .message-text {
+    font-size: 1rem;
+  }
+
+  .assistant-message .message-text {
+    font-size: 1rem;
+  }
+}
+
