@@ -1,0 +1,7 @@
+[
+    {
+        "name": "Polygrapher",
+        "video": "/videos/Polygrapher Demo.mp4",
+        "description": "A tool developed for Polymarket to automate their daily newsletter. The product uses Polymarket's various APIs to pull relevant markets and trades, allows usres to customize parts of the email (like the intro and outro, daily top stories), and let's them select which markets to highlight. From there, it also optimizes the html for sending through email clients (converting links to Dub links, uploading ay images to Cloudinary, minifying, etc). Daily newsletter produced by Polygrapher goes out to over 200k subscribers and has led to 1 million+ in new deposits in ~1 month."
+    }
+]

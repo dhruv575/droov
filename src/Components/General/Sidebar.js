@@ -7,7 +7,7 @@ import {
   HiOutlineNewspaper, 
   HiOutlineChartBar,
   HiOutlineX,
-  HiOutlineMenu
+  HiOutlinePlay
 } from 'react-icons/hi';
 import { 
   FaLinkedin, 
@@ -19,6 +19,7 @@ import logo from './logo-rect.png';
 import chatsData from '../../Data/chats.json';
 import researchData from '../../Data/research.json';
 import projectsData from '../../Data/projects.json';
+import demosData from '../../Data/demos.json';
 import './Sidebar.css';
 
 // Simple X (Twitter) icon component
@@ -44,6 +45,7 @@ const Sidebar = ({ isOpen, onToggle }) => {
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [articlesOpen, setArticlesOpen] = useState(false);
   const [researchOpen, setResearchOpen] = useState(false);
+  const [demosOpen, setDemosOpen] = useState(false);
 
   // Social links
   const socialLinks = [
@@ -164,6 +166,40 @@ const Sidebar = ({ isOpen, onToggle }) => {
                 })}
                 <Link to="/chats" className="sidebar-dropdown-link view-all-link">
                   <span className="view-all-text">View All Chats</span>
+                  <span className="view-all-arrow">→</span>
+                </Link>
+              </div>
+            )}
+
+            <button
+              className="sidebar-dropdown-toggle"
+              onClick={() => setDemosOpen(!demosOpen)}
+            >
+              <HiOutlinePlay className="sidebar-icon" style={{ color: '#ffffff' }} />
+              <span>Demos</span>
+              <span className="dropdown-arrow">{demosOpen ? '▼' : '▶'}</span>
+            </button>
+            {demosOpen && (
+              <div className="sidebar-dropdown-content">
+                {demosData.map((demo, index) => {
+                  const demoTitle = demo.name;
+                  const displayTitle = demoTitle.length > 25 
+                    ? demoTitle.substring(0, 23) + '..' 
+                    : demoTitle;
+                  const demoPath = `/demos/${demo.name.replace(/\s+/g, '-').toLowerCase()}`;
+                  const isActive = location.pathname === demoPath;
+                  return (
+                    <Link 
+                      key={index}
+                      to={demoPath}
+                      className={`sidebar-dropdown-link ${isActive ? 'active' : ''}`}
+                    >
+                      {displayTitle}
+                    </Link>
+                  );
+                })}
+                <Link to="/demos" className="sidebar-dropdown-link view-all-link">
+                  <span className="view-all-text">View All Demos</span>
                   <span className="view-all-arrow">→</span>
                 </Link>
               </div>

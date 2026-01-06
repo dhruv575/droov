@@ -11,18 +11,24 @@ import NewHome from './Pages/NewHome';
 import ResumePage from './Pages/ResumePage';
 import NotFoundPage from './Pages/NotFoundPage';
 import ProjectsPage from './Pages/ProjectsPage';
+import DemosPage from './Pages/DemosPage';
+import DemoPage from './Pages/DemoPage';
 
 function AppContent() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const isResumePage = location.pathname === '/resume';
   const isProjectsPage = location.pathname === '/projects';
+  const isDemosPage = location.pathname === '/demos' || location.pathname.startsWith('/demos/');
   const isChatsPage = location.pathname === '/chats' || location.pathname.startsWith('/chats/');
   const isResearchPage = location.pathname === '/research' || location.pathname.startsWith('/research/');
-  const validPaths = ['/', '/old', '/resume', '/projects', '/chats', '/research', '/newsletter'];
+  const validPaths = ['/', '/old', '/resume', '/projects', '/demos', '/chats', '/research', '/newsletter'];
   const isValidPath = validPaths.some(path => {
     if (path === '/chats') {
       return location.pathname === '/chats' || location.pathname.startsWith('/chats/');
+    }
+    if (path === '/demos') {
+      return location.pathname === '/demos' || location.pathname.startsWith('/demos/');
     }
     if (path === '/research') {
       return location.pathname === '/research' || location.pathname.startsWith('/research/');
@@ -33,12 +39,14 @@ function AppContent() {
 
   return (
     <>
-      {!isHomePage && !isResumePage && !isProjectsPage && !isChatsPage && !isResearchPage && !isNotFoundPage && <Navbar />}
+      {!isHomePage && !isResumePage && !isProjectsPage && !isDemosPage && !isChatsPage && !isResearchPage && !isNotFoundPage && <Navbar />}
       <Routes>
         <Route path="/" element={<NewHome />} />
         <Route path="/old" element={<Home />} />
         <Route path="/resume" element={<ResumePage />} />
         <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/demos" element={<DemosPage />} />
+        <Route path="/demos/:title" element={<DemoPage />} />
         <Route path="/chats/:title" element={<ChatPage />} />
         <Route path="/chats" element={<ChatsPage />} />
         <Route path="/research/:title" element={<ChatPage />} />
@@ -46,7 +54,7 @@ function AppContent() {
         <Route path="/newsletter" element={<NewsletterPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      {!isHomePage && !isResumePage && !isProjectsPage && !isChatsPage && !isResearchPage && !isNotFoundPage && <Footer />}
+      {!isHomePage && !isResumePage && !isProjectsPage && !isDemosPage && !isChatsPage && !isResearchPage && !isNotFoundPage && <Footer />}
     </>
   );
 }
