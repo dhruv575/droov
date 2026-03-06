@@ -89,6 +89,12 @@
   background-color: #2f2f3a;
 }
 
+.sidebar-link.active {
+  background-color: #2f2f3a;
+  color: #ececf1;
+  border-right: 2px solid #5170FF;
+}
+
 .sidebar-icon {
   margin-right: 0.75rem;
   font-size: 1.25rem;
@@ -148,6 +154,16 @@
 
 .sidebar-dropdown-link.active {
   background-color: #343541;
+}
+
+.sidebar-dropdown-separator {
+  padding: 0.5rem 1rem 0.25rem 1rem;
+  font-size: 0.6875rem;
+  color: #8e8ea0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  margin-top: 0.25rem;
 }
 
 .sidebar-dropdown-link.view-all-link {

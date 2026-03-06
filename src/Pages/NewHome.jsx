@@ -83,10 +83,10 @@ const NewHome = () => {
               </p>
             </Link>
 
-            <Link to="/research" className="grid-card">
-              <h3 className="card-title">Prediction Market Research</h3>
+            <Link to="/demos" className="grid-card">
+              <h3 className="card-title">Demos</h3>
               <p className="card-description">
-                Discover my research on prediction markets and forecasting
+                Video walkthroughs of tools and applications
               </p>
             </Link>
           </div>

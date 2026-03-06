@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { HiOutlineArrowLeft } from 'react-icons/hi';
 import demosData from '../Data/demos.json';
 import Sidebar from '../Components/General/Sidebar';
 import { useIsMobile } from '../hooks/useIsMobile';
@@ -61,6 +62,9 @@ const DemoPage = () => {
 
           {demo ? (
             <div className="demo-content">
+              <Link to="/demos" className="back-link">
+                <HiOutlineArrowLeft /> Back to Demos
+              </Link>
               <div className="demo-video-wrapper">
                 <video 
                   controls 

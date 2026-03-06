@@ -10,61 +10,6 @@
   position: relative;
 }
 
-.layout-container {
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #181818;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-  transition: margin-left 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  min-width: 0;
-  max-width: 100%;
-  min-height: 100vh;
-}
-
-.main-content.sidebar-open {
-  margin-left: 260px;
-  background-color: #212121;
-}
-
-.main-content.sidebar-closed {
-  margin-left: 0;
-  background-color: #181818;
-}
-
-/* Sidebar Toggle Button */
-.sidebar-toggle-btn {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  background-color: #181818;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #8e8ea0;
-  cursor: pointer;
-  padding: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.5rem;
-  transition: background-color 0.2s, color 0.2s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 1.25rem;
-  z-index: 99;
-}
-
-.sidebar-toggle-btn:hover {
-  background-color: #2f2f3a;
-  color: #ececf1;
-}
-
 .demo-content {
   max-width: 900px;
   margin: 0 auto;
@@ -122,52 +67,14 @@
   margin: 0;
 }
 
-/* Mobile Styles */
+/* Mobile */
 @media (max-width: 768px) {
   .demo-page {
     flex-direction: column;
   }
 
-  .layout-container {
-    flex-direction: column;
-    position: relative;
-  }
-
-  /* Mobile Hamburger Button */
-  .mobile-hamburger-btn {
-    position: fixed;
-    top: 1rem;
-    left: 1rem;
-    background-color: #181818;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ececf1;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    z-index: 150;
-    transition: background-color 0.2s, color 0.2s;
-  }
-
-  .mobile-hamburger-btn:hover {
-    background-color: #2f2f3a;
-  }
-
-  .main-content {
-    width: 100%;
-    min-height: 100vh;
-    padding-bottom: 80px;
-    max-width: 100vw;
-    overflow-x: hidden;
-    margin-left: 0 !important;
-    -webkit-overflow-scrolling: touch;
-  }
-
   .demo-content {
-    padding: 2rem 1rem 4rem 1rem;
+    padding: 3.5rem 1rem 4rem 1rem;
   }
 
   .demo-title {
@@ -190,16 +97,5 @@
 
   .demo-main-description {
     font-size: 0.9375rem;
-  }
-
-  .sidebar-toggle-btn {
-    display: none;
-  }
-}
-
-/* Hide mobile hamburger on desktop */
-@media (min-width: 769px) {
-  .mobile-hamburger-btn {
-    display: none;
   }
 }

@@ -15,8 +15,8 @@ const ChatMessage = ({ role, content }) => {
             <div className="message-text">
               <ReactMarkdown
                 components={{
-                  a: ({ node, ...props }) => (
-                    <a {...props} target="_blank" rel="noopener noreferrer" />
+                  a: ({ node, children, ...props }) => (
+                    <a {...props} target="_blank" rel="noopener noreferrer">{children}</a>
                   ),
                 }}
               >

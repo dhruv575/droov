@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(cd:*)",
+      "WebFetch(domain:ibb.co)",
+      "Bash(cd /c/dev/droov/updates/updatebuilder && npm install 2>&1)",
+      "Bash(rm:*)",
+      "Bash(npx vite:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(gh repo:*)"
+    ]
+  }
+}

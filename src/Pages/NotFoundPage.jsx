@@ -1,13 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { HiOutlineArrowDown, HiOutlineMenu } from 'react-icons/hi';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { HiOutlineMenu } from 'react-icons/hi';
 import ChatMessage from '../Components/Chat/ChatMessage';
 import Sidebar from '../Components/General/Sidebar';
 import { useIsMobile } from '../hooks/useIsMobile';
 import './NotFoundPage.css';
 
 const NotFoundPage = () => {
-  const chatEndRef = useRef(null);
-  const [showScrollButton, setShowScrollButton] = useState(false);
+  const location = useLocation();
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
 
@@ -15,34 +15,16 @@ const NotFoundPage = () => {
     setSidebarOpen(!isMobile);
   }, [isMobile]);
 
-  const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      setShowScrollButton(scrollTop + windowHeight < documentHeight - 200);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const errorMessage = `This is a 404 error - the page you're looking for doesn't exist. It seems like Dhruv hasn't written about this topic yet, or the URL might be incorrect.
+  const errorMessage = `This is a 404 error — nothing exists at \`${location.pathname}\`. Dhruv hasn't written about this topic yet, or the URL might be incorrect.
 
 You can navigate back to the [home page](/), check out the [resume](/resume), or explore other sections using the menu.`;
 
   return (
     <div className="not-found-page">
-      {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div
           className="mobile-sidebar-overlay"
@@ -51,12 +33,9 @@ You can navigate back to the [home page](/), check out the [resume](/resume), or
         />
       )}
       <div className="layout-container">
-        {/* Left Sidebar */}
         <Sidebar isOpen={sidebarOpen} onToggle={setSidebarOpen} />
 
-        {/* Main Content */}
         <main className={`main-content ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
-          {/* Mobile Hamburger Menu Button */}
           <button
             className="mobile-hamburger-btn"
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -65,9 +44,8 @@ You can navigate back to the [home page](/), check out the [resume](/resume), or
             <HiOutlineMenu />
           </button>
 
-          {/* Sidebar toggle button when closed (desktop only) */}
           {!sidebarOpen && (
-            <button 
+            <button
               className="sidebar-toggle-btn"
               onClick={() => setSidebarOpen(true)}
               aria-label="Open sidebar"
@@ -79,14 +57,6 @@ You can navigate back to the [home page](/), check out the [resume](/resume), or
           <div className="chat-container">
             <ChatMessage role="user" content="Wait has Dhruv written about this??" />
             <ChatMessage role="assistant" content={errorMessage} />
-
-            <div ref={chatEndRef} />
-
-            {showScrollButton && (
-              <button className="scroll-to-bottom-btn" onClick={scrollToBottom} aria-label="Scroll to bottom">
-                <HiOutlineArrowDown />
-              </button>
-            )}
           </div>
         </main>
       </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import projectsData from '../../Data/projects.json';
 import chatsData from '../../Data/chats.json';
 import researchData from '../../Data/research.json';
+import demosData from '../../Data/demos.json';
 import './SearchBar.css';
 
 const SearchBar = ({ placeholder = "Ask anything" }) => {
@@ -25,11 +26,11 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Resume content - extracted from ResumePage
+  // Resume content - mirrors the actual ResumePage content
   const resumeContent = {
     type: 'resume',
     title: 'Resume',
-    content: `University of Pennsylvania Bachelors of Engineering in Artificial Intelligence August 2023 May 2027 Philadelphia PA GPA 3.97 Relevant Courses Data Structures and Algorithms Big Data Analytics Linear Algebra for ML AI Optimization. Jane Street May 2026 August 2026 Incoming Strategy and Product Intern New York NY. Polymarket November 2025 Present Growth Engineer Philadelphia PA Engineered high-reliability market-fetching infrastructure templated email-generation tooling powering Polymarket daily market insights newsletter 10000 users leading 80K daily trade activity. Morgan Stanley May 2025 August 2025 Fixed Income Quant Intern New York NY Developed XGBoost models predicting month-by-month mortgage prepayment default loan level wrote script using model calculate cashflows loan pools production billion annual lending. Ryval January 2025 May 2025 Founding Applied Mathematician Miami FL Formulated dynamically shifting odds-pricing algorithm spot betting Twitch streams ensure 10 percent profit Implemented deployed web socket based server handle live bet limit odd updates. University of Pennsylvania January 2025 May 2025 Teaching Assistant Linear Algebra ML AI Philadelphia PA Conducted office hours recitations 120 students wrote class homeworks notes. Prelude May 2024 August 2024 Technology Program Management Intern New York NY Increased GTM outreach 1800 percent 15 percent budget automating AI agent scrape 40000 contacts Built AI entrepreneurship assistant using React Mongo GPT-4o-mini automate business canvas creation. Hack4Impact September 2023 Present Co-director Philadelphia PA Managed 40 student developers build software 6 nonprofit organizations year Led 12 engineers full-stack project Fulfill NJ aggregating 20 data sources dashboard used C-suite decision making Developed backend architecture projects Neighborshare ArtSphere Guitars over Guns. Global Research and Consulting Group September 2023 Present Vice President Finance Philadelphia PA. Daily Pennsylvanian December 2023 December 2024 Innovation Lab Manager Philadelphia PA. Comma Capital August 2024 November 2024 University Fellow New York NY.`
+    content: `University of Pennsylvania graduating May 2027 Bachelors of Engineering in Artificial Intelligence 3.97 GPA topped courses Big Data Analytics Linear Algebra for ML AI. Jane Street Strategy and Product Intern New York May 2026 to August 2026. Polymarket data-driven journalism team built market-fetching html email-generation tool powering daily market insights newsletter 200000 users led to 1 million in deposits. Morgan Stanley Fixed Income Quant Intern New York developed XGBoost models predicting month-by-month mortgage prepayment default loan level wrote script calculate cashflows loan pools production billion annual lending mortgage backed securities. Ryval Founding Applied Mathematician dynamically shifting odds-pricing algorithm spot betting Twitch streams ensure 10 percent profit web socket server live bet limit odd updates. University of Pennsylvania Teaching Assistant Linear Algebra for ML AI. Venture Camp SWE Intern building mini version of Clay. Hack4Impact co-director leading 40 engineers build software nonprofit organizations led projects Fulfill NJ Baldwin School alumni relations. Signal Society website. WhartonGRC VP of Finance. Daily Pennsylvanian head of entrepreneurship. Comma Capital fellow.`
   };
 
   // Combine all searchable items
@@ -37,7 +38,8 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
     resumeContent,
     ...projectsData.map(item => ({ ...item, type: 'project', title: item.name, content: item.desc })),
     ...chatsData.map(item => ({ ...item, type: 'chat', title: item.title, content: item.description })),
-    ...researchData.map(item => ({ ...item, type: 'research', title: item.title, content: item.description }))
+    ...researchData.map(item => ({ ...item, type: 'research', title: item.title, content: item.description })),
+    ...demosData.map(item => ({ ...item, type: 'demo', title: item.name, content: item.description }))
   ];
 
   const searchItems = (query) => {
@@ -47,7 +49,6 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
     }
 
     const lowerQuery = query.toLowerCase().trim();
-    const queryWords = lowerQuery.split(/\s+/).filter(w => w.length > 0);
     const matches = [];
 
     allItems.forEach(item => {
@@ -123,6 +124,7 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
 
   useEffect(() => {
     searchItems(searchQuery);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
@@ -142,14 +144,8 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
     setSelectedIndex(-1);
   };
 
-  const handleInputFocus = (e) => {
+  const handleInputFocus = () => {
     setShowResults(true);
-    // On mobile, scroll input into view after a short delay to account for keyboard
-    if (isMobile && searchRef.current?.closest('.mobile-input-container')) {
-      setTimeout(() => {
-        e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300);
-    }
   };
 
   const handleKeyDown = (e) => {
@@ -177,6 +173,8 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
       navigate(`/chats/${(item.chatTitle || item.title).replace(/\s+/g, '-').toLowerCase()}`);
     } else if (item.type === 'research') {
       navigate(`/research/${(item.chatTitle || item.title).replace(/\s+/g, '-').toLowerCase()}`);
+    } else if (item.type === 'demo') {
+      navigate(`/demos/${item.title.replace(/\s+/g, '-').toLowerCase()}`);
     }
     setShowResults(false);
     setSearchQuery('');
@@ -217,24 +215,30 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
           onFocus={handleInputFocus}
         />
       </div>
-      {showResults && results.length > 0 && (
+      {showResults && searchQuery.trim() && (
         <div className="search-results" ref={resultsRef}>
-          {results.map((item, index) => (
-            <div
-              key={`${item.type}-${index}`}
-              className={`search-result-item ${selectedIndex === index ? 'selected' : ''}`}
-              onClick={() => handleItemClick(item)}
-              onMouseEnter={() => setSelectedIndex(index)}
-            >
-              <div className="result-title">
-                <strong>{item.title}</strong>
+          {results.length > 0 ? (
+            results.map((item, index) => (
+              <div
+                key={`${item.type}-${index}`}
+                className={`search-result-item ${selectedIndex === index ? 'selected' : ''}`}
+                onClick={() => handleItemClick(item)}
+                onMouseEnter={() => setSelectedIndex(index)}
+              >
+                <div className="result-title">
+                  <strong>{item.title}</strong>
+                </div>
+                <div className="result-snippet">
+                  {highlightSnippet(item.snippet, item.snippetMatchIndex, item.matchLength, searchQuery)}
+                </div>
+                <div className="result-type">{item.type}</div>
               </div>
-              <div className="result-snippet">
-                {highlightSnippet(item.snippet, item.snippetMatchIndex, item.matchLength, searchQuery)}
-              </div>
-              <div className="result-type">{item.type}</div>
+            ))
+          ) : (
+            <div className="search-no-results">
+              No results for "{searchQuery}"
             </div>
-          ))}
+          )}
         </div>
       )}
     </div>

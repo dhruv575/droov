@@ -97,6 +97,13 @@
   margin-top: 0.25rem;
 }
 
+.search-no-results {
+  padding: 1.25rem 1rem;
+  color: #8e8ea0;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
 /* Scrollbar for results */
 .search-results::-webkit-scrollbar {
   width: 8px;
@@ -138,10 +145,10 @@
   }
 
   .mobile-input-container .search-results {
-    max-height: calc(100vh - 250px);
+    max-height: 40vh;
     position: fixed;
     top: auto;
-    bottom: 90px;
+    bottom: 70px;
     left: 0.75rem;
     right: 0.75rem;
     max-width: calc(100vw - 1.5rem);

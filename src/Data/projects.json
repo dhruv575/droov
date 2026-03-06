@@ -1,11 +1,75 @@
 [
     {
+        "name": "The Spread",
+        "desc": "A comprehensive prediction market news and analysis platform. Aggregates markets, odds movements, and trading activity across prediction market platforms into a single destination.",
+        "tech": ["React", "Python", "Supabase", "Cloudflare", "Railway", "Render"],
+        "link": "https://thespread.news/",
+        "image": "/images/projects/spreadDemoPic.jpg"
+    },
+    {
+        "name": "Polygrapher",
+        "desc": "Newsletter automation tool built for Polymarket. Pulls relevant markets and trades via APIs, lets editors customize content, optimizes HTML for email clients (Dub links, Cloudinary, minification). Goes out to 200k+ subscribers and drove $1M+ in new deposits in ~1 month.",
+        "tech": ["React", "Node.js", "Polymarket API", "Cloudinary", "Dub", "HuggingFace", "Docker"],
+        "video": "/videos/Polygrapher Demo.mp4",
+        "link": "/demos/polygrapher",
+        "image": "/images/projects/polygrapherDemoPic.jpg"
+    },
+    {
+        "name": "Indexr",
+        "desc": "Real-time searchable index of Polymarket markets and large trades. Syncs data every 5 minutes, flags whale traders (>$5K trades), tracks win rates, and filters by liquidity. Surfaces NewWhale, WinningTrader, and Contrarian behavioral tags.",
+        "tech": ["React", "Node.js", "Supabase", "Render", "Polymarket API", "Vercel"],
+        "link": "https://pmindexr.vercel.app/",
+        "image": "/images/projects/indexrDemoPic.jpg"
+    },
+    {
         "name": "Enflow",
         "desc": "System that allows police departments to build documentation workflows that they can automatically fill out through keyword extraction on daily logs via LLMs",
         "tech": ["React", "Python", "OpenAI API", "Parallelization through Redis", "HuggingFace"],
         "video": "https://drive.google.com/file/d/1E5m896hOm0O4y7nmx_PkjhfrjvA7h8Ss/view?usp=sharing",
         "link": "https://www.tryenflow.com/",
         "image": "/images/projects/enflowDemoPic.jpg"
+    },
+    {
+        "name": "PolyProfiler",
+        "desc": "Trading analytics platform for Polymarket. Input any wallet address to generate calibration curves, price distribution histograms, trading timelines for biggest wins/losses, and a trader fingerprint radar chart showing risk tolerance, market diversity, and holding patterns.",
+        "tech": ["React", "Node.js", "Polymarket API", "Chart.js"],
+        "link": "https://polyprofiler.vercel.app/",
+        "image": "/images/projects/polyprofilerDemoPic.jpg"
+    },
+    {
+        "name": "SafeChoices",
+        "desc": "Research on whether 'safe' prediction market bets (90%+ probability) can beat Treasury rates. Includes Polymarket API data collection, probability calibration analysis across confidence bands, and Monte Carlo simulations modeling single-fund, threshold, and multi-fund portfolio strategies. Dataset published on Kaggle.",
+        "tech": ["Python", "Jupyter", "Polymarket API", "Monte Carlo"],
+        "link": "https://droov-safechoicessimulation.hf.space/",
+        "image": "/images/projects/safechoicesDemoPic.jpg"
+    },
+    {
+        "name": "PRDucer",
+        "desc": "Developed for the Wharton School's Executive MBA classes. A step-by-step LLM assisted walkthrough of creating a technically sound PRD that can be given to Cursor, Claude Code, or any other AI assisted tool.",
+        "tech": ["React", "OpenAI API"],
+        "link": "https://prducer.vercel.app/",
+        "image": "/images/projects/prducerDemoPic.jpg"
+    },
+    {
+        "name": "AIrchemedes",
+        "desc": "A GPT-powered assistant for all steps of the entrepreneurial process. Takes a few keywords and walks you through building an executable product — from ideation to technical specification.",
+        "tech": ["React", "OpenAI API"],
+        "link": "https://www.airchemedes.com/",
+        "image": "/images/projects/airchemedesDemoPic.jpg"
+    },
+    {
+        "name": "RushTracker",
+        "desc": "A rush management system for Greek life organizations. Tracks prospective members through the rush process with a full frontend and backend.",
+        "tech": ["React", "Node.js", "MongoDB"],
+        "link": "https://github.com/dhruv575/rushtracker-frontend",
+        "image": "/images/projects/rushtrackerDemoPic.jpg"
+    },
+    {
+        "name": "Contact Scraper",
+        "desc": "Ruby on Rails pipeline for scraping school contact information at scale. Multi-stage workflow with VPN rotation for rate limit handling, Sidekiq background jobs with Redis, and CSV export. Includes a Sidekiq web UI for job monitoring.",
+        "tech": ["Ruby on Rails", "Sidekiq", "Redis"],
+        "link": "https://github.com/dhruv575/contact-scraper",
+        "image": "/images/projects/contactScraperDemoPic.jpg"
     },
     {
         "name": "Traffic Simulation",
@@ -36,13 +100,6 @@
         "tech": ["React"],
         "link": "https://www.pennbti.com/",
         "image": "/images/projects/pennbtiDemoPic.jpg"
-    },
-    {
-        "name": "PRDucer",
-        "desc": "Developed for the Wharton School's Executive MBA classes. A step-by-step LLM assisted walkthrough of creating a technically sound PRD that can be given to Cursor, Claude Code, or any other AI assisted tool.",
-        "tech": ["React", "OpenAI API"],
-        "link": "https://prducer.vercel.app/",
-        "image": "/images/projects/prducerDemoPic.jpg"
     },
     {
         "name": "Presidential Debate Data",

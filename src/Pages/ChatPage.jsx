@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
+import { HiOutlineArrowLeft } from 'react-icons/hi';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import chatsData from '../Data/chats.json';
@@ -77,6 +78,9 @@ const ChatPage = () => {
 
           {chat ? (
             <div className="chat-content">
+              <Link to={isResearch ? '/chats' : '/chats'} className="back-link">
+                <HiOutlineArrowLeft /> Back to Chats
+              </Link>
               <h1 
                 className="chat-title" 
                 dangerouslySetInnerHTML={{ __html: chat.title.replace(/\n/g, '<br />').replace(/<br>/gi, '<br />') }}
@@ -88,8 +92,8 @@ const ChatPage = () => {
                 <ReactMarkdown
                   rehypePlugins={[rehypeRaw]}
                   components={{
-                    a: ({ node, ...props }) => (
-                      <a {...props} target="_blank" rel="noopener noreferrer" />
+                    a: ({ node, children, ...props }) => (
+                      <a {...props} target="_blank" rel="noopener noreferrer">{children}</a>
                     ),
                   }}
                 >
