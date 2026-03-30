@@ -6,7 +6,8 @@ import {
   HiOutlineFolder,
   HiOutlineNewspaper,
   HiOutlineX,
-  HiOutlinePlay
+  HiOutlinePlay,
+  HiOutlineSpeakerphone
 } from 'react-icons/hi';
 import {
   FaLinkedin,
@@ -109,6 +110,10 @@ const Sidebar = ({ isOpen, onToggle }) => {
             <Link to="/demos" className={`sidebar-link ${location.pathname === '/demos' || location.pathname.startsWith('/demos/') ? 'active' : ''}`}>
               <HiOutlinePlay className="sidebar-icon" style={{ color: '#ffffff' }} />
               <span>Demos</span>
+            </Link>
+            <Link to="/updates" className={`sidebar-link ${location.pathname === '/updates' || location.pathname.startsWith('/updates/') ? 'active' : ''}`}>
+              <HiOutlineSpeakerphone className="sidebar-icon" style={{ color: '#ffffff' }} />
+              <span>Updates</span>
             </Link>
           </div>
         </div>

@@ -10,6 +10,8 @@ import NotFoundPage from './Pages/NotFoundPage';
 import ProjectsPage from './Pages/ProjectsPage';
 import DemosPage from './Pages/DemosPage';
 import DemoPage from './Pages/DemoPage';
+import UpdatesPage from './Pages/UpdatesPage';
+import UpdatePage from './Pages/UpdatePage';
 
 function AppContent() {
   return (
@@ -20,6 +22,8 @@ function AppContent() {
       <Route path="/projects" element={<ProjectsPage />} />
       <Route path="/demos" element={<DemosPage />} />
       <Route path="/demos/:title" element={<DemoPage />} />
+      <Route path="/updates" element={<UpdatesPage />} />
+      <Route path="/updates/:title" element={<UpdatePage />} />
       <Route path="/chats/:title" element={<ChatPage />} />
       <Route path="/chats" element={<ChatsPage />} />
       <Route path="/research/:title" element={<ChatPage />} />

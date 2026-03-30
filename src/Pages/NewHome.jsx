@@ -83,10 +83,10 @@ const NewHome = () => {
               </p>
             </Link>
 
-            <Link to="/demos" className="grid-card">
-              <h3 className="card-title">Demos</h3>
+            <Link to="/updates" className="grid-card">
+              <h3 className="card-title">Updates</h3>
               <p className="card-description">
-                Video walkthroughs of tools and applications
+                Quarterly dispatches on what I'm building and learning
               </p>
             </Link>
           </div>
