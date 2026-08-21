@@ -1,87 +1,110 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { HiOutlineArrowDown, HiOutlineMenu } from 'react-icons/hi';
-import { FaTiktok, FaExternalLinkAlt, FaVideo, FaFileAlt } from 'react-icons/fa';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { HiOutlineMenu, HiOutlineArrowNarrowRight, HiOutlineExternalLink } from 'react-icons/hi';
 import ChatMessage from '../Components/Chat/ChatMessage';
 import Sidebar from '../Components/General/Sidebar';
+import ProjectVisual from '../Components/Projects/ProjectVisual';
 import { useIsMobile } from '../hooks/useIsMobile';
 import projectsData from '../Data/projects.json';
 import './ProjectsPage.css';
 
-const FEATURED_COUNT = 3;
+/**
+ * Projects.
+ *
+ * Five pinned projects cycle through a sticky stage on a timer. Clicking a row
+ * holds that project and stops the cycle; clicking it again releases it.
+ * Hovering deliberately does nothing — the rotation stays predictable.
+ * Everything else sits in a grid below the divider.
+ */
 
-const ProjectLink = ({ href, icon: Icon, label }) => (
+const PINNED = ['MTS', 'CONDITIONAL', 'Uncertainty Labs', 'The Spread', '877UNMPLYD'];
+const ROTATE_MS = 6000;
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+const Stack = ({ tech }) => (
+  <ul className="pj-stack">
+    {tech.map((item) => (
+      <li key={item} className="pj-stack-item">
+        {item}
+      </li>
+    ))}
+  </ul>
+);
+
+const ProjectCard = ({ project }) => (
   <a
-    href={href}
+    className="pj-card"
+    href={project.link}
     target="_blank"
     rel="noopener noreferrer"
-    className="project-link"
+    style={{ '--pj-card-live': project.visual.accent }}
   >
-    <Icon className="project-icon" />
-    <span>{label}</span>
+    <div className="pj-card-screen">
+      <ProjectVisual visual={project.visual} label={project.name} />
+    </div>
+    <div className="pj-card-body">
+      <span className="pj-card-domain">{project.domain}</span>
+      <h3 className="pj-card-name">{project.name}</h3>
+      <p className="pj-card-desc">{project.desc}</p>
+      <Stack tech={project.tech} />
+      {/* A span, not a link: the whole card is already the link. */}
+      <span className="pj-visit pj-visit-card">
+        Visit
+        <HiOutlineArrowNarrowRight />
+      </span>
+    </div>
   </a>
 );
 
-const ProjectCard = ({ project, featured }) => (
-  <div className={`project-card ${featured ? 'project-card-featured' : ''}`}>
-    <div className="project-card-content">
-      <div className="project-image-container">
-        <img src={project.image} alt={project.name} className="project-image" />
-      </div>
-      <div className="project-info">
-        <h3 className="project-name">{project.name}</h3>
-        <p className="project-description">{project.desc}</p>
-        <div className="project-tech">
-          {project.tech.map((techItem, techIndex) => (
-            <span key={techIndex} className="tech-tag">{techItem}</span>
-          ))}
-        </div>
-        <div className="project-links">
-          {project.tiktok && <ProjectLink href={project.tiktok} icon={FaTiktok} label="TikTok" />}
-          {project.video && <ProjectLink href={project.video} icon={FaVideo} label="Demo" />}
-          {project.prd && <ProjectLink href={project.prd} icon={FaFileAlt} label="PRD" />}
-          {project.link && <ProjectLink href={project.link} icon={FaExternalLinkAlt} label="Visit" />}
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
 const ProjectsPage = () => {
-  const chatEndRef = useRef(null);
-  const [showScrollButton, setShowScrollButton] = useState(false);
   const isMobile = useIsMobile();
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+  const [autoIndex, setAutoIndex] = useState(0);
+  const [heldIndex, setHeldIndex] = useState(null);
+
+  const pinned = useMemo(
+    () => PINNED.map((name) => projectsData.find((p) => p.name === name)).filter(Boolean),
+    []
+  );
+  const rest = useMemo(() => projectsData.filter((p) => !PINNED.includes(p.name)), []);
 
   useEffect(() => {
     setSidebarOpen(!isMobile);
   }, [isMobile]);
 
-  const scrollToBottom = () => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      setShowScrollButton(scrollTop + windowHeight < documentHeight - 200);
-    };
+  const rotating = heldIndex === null && !isMobile && !prefersReducedMotion();
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+  // The cycle. Held selections and reduced-motion both stop it.
+  useEffect(() => {
+    if (!rotating) return undefined;
+    const id = setInterval(() => {
+      setAutoIndex((i) => (i + 1) % pinned.length);
+    }, ROTATE_MS);
+    return () => clearInterval(id);
+  }, [rotating, pinned.length]);
+
+  const shown = heldIndex ?? autoIndex;
+  const active = pinned[shown] || pinned[0];
+
+  // Click holds a project; clicking the held one again resumes the cycle.
+  const toggleHold = useCallback((index) => {
+    setHeldIndex((current) => {
+      if (current === index) return null;
+      setAutoIndex(index);
+      return index;
+    });
   }, []);
 
-  const featured = projectsData.slice(0, FEATURED_COUNT);
-  const rest = projectsData.slice(FEATURED_COUNT);
+  const accentStyle = useMemo(() => ({ '--pj-live': active.visual.accent }), [active]);
 
   return (
-    <div className="projects-page">
+    <div className="projects-page" style={accentStyle}>
       {sidebarOpen && (
         <div
           className="mobile-sidebar-overlay"
@@ -111,35 +134,106 @@ const ProjectsPage = () => {
             </button>
           )}
 
-          <div className="chat-container">
-            <ChatMessage role="user" content="What has Dhruv built?" />
-            <ChatMessage role="assistant" content="Prediction market tools, AI products, data analysis, and web apps — here's everything, starting with the highlights." />
+          <div className="pj-page">
+            <div className="pj-chat">
+              <ChatMessage role="user" content="What has Dhruv built?" />
+              <ChatMessage
+                role="assistant"
+                content="Prediction market tools, AI products, data analysis, and web apps. These five cycle on their own — click one to hold it — and everything else is below."
+              />
+            </div>
 
-            {/* Featured projects — full width hero cards */}
-            <div className="projects-featured">
-              {featured.map((project, index) => (
-                <ProjectCard key={index} project={project} featured />
+            {/* Pinned five. */}
+            <div className="pj-rack">
+              <aside className="pj-stage">
+                <div className="pj-stage-frame">
+                  <div className="pj-stage-bar">
+                    <span className="pj-stage-domain">{active.domain}</span>
+                    <span className="pj-stage-state">
+                      {heldIndex === null ? 'cycling' : 'held'}
+                    </span>
+                  </div>
+                  <div className="pj-stage-screen" key={active.name}>
+                    <ProjectVisual visual={active.visual} label={active.name} />
+                    <span className="pj-stage-sweep" />
+                    {rotating && (
+                      <span
+                        className="pj-stage-progress"
+                        key={`progress-${shown}`}
+                        style={{ animationDuration: `${ROTATE_MS}ms` }}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                {/* Fixed height so the panel never jumps between projects. */}
+                <div className="pj-stage-readout">
+                  <div className="pj-stage-text" key={`${active.name}-meta`}>
+                    <h2 className="pj-stage-name">{active.name}</h2>
+                    <p className="pj-desc pj-desc-clamp">{active.desc}</p>
+                    <Stack tech={active.tech} />
+                  </div>
+                  <a
+                    className="pj-visit pj-visit-stage"
+                    href={active.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit {active.name}
+                    <HiOutlineExternalLink />
+                  </a>
+                </div>
+              </aside>
+
+              <ol className="pj-register">
+                {pinned.map((project, index) => (
+                  <li
+                    key={project.name}
+                    className={`pj-row ${shown === index ? 'is-active' : ''}`}
+                    style={{ '--pj-row-live': project.visual.accent }}
+                  >
+                    <button
+                      type="button"
+                      className="pj-row-select"
+                      onClick={() => toggleHold(index)}
+                      aria-pressed={heldIndex === index}
+                    >
+                      <span className="pj-row-domain">{project.domain}</span>
+                      <span className="pj-row-name">{project.name}</span>
+                    </button>
+
+                    {/* The stacked layout's version of the stage. */}
+                    <div className="pj-row-inline">
+                      <div className="pj-row-screen">
+                        <ProjectVisual visual={project.visual} label={project.name} />
+                      </div>
+                      <p className="pj-desc">{project.desc}</p>
+                      <Stack tech={project.tech} />
+                    </div>
+
+                    <a
+                      className="pj-visit pj-visit-row"
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Visit
+                      <HiOutlineExternalLink />
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <div className="pj-divider">
+              <span>More projects</span>
+            </div>
+
+            <div className="pj-grid">
+              {rest.map((project) => (
+                <ProjectCard key={project.name} project={project} />
               ))}
             </div>
-
-            <div className="projects-section-divider">
-              <span>More Projects</span>
-            </div>
-
-            {/* Rest of the projects — 2-column grid */}
-            <div className="projects-grid">
-              {rest.map((project, index) => (
-                <ProjectCard key={index} project={project} />
-              ))}
-            </div>
-
-            <div ref={chatEndRef} />
-
-            {showScrollButton && (
-              <button className="scroll-to-bottom-btn" onClick={scrollToBottom} aria-label="Scroll to bottom">
-                <HiOutlineArrowDown />
-              </button>
-            )}
           </div>
         </main>
       </div>

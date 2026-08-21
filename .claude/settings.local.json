@@ -11,7 +11,18 @@
       "WebFetch(domain:github.com)",
       "Bash(gh repo:*)",
       "Bash(npm install:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(xargs head:*)",
+      "Bash(bun --version)",
+      "Bash(bun install:*)",
+      "Bash(bun turbo:*)",
+      "Bash(bun test:*)",
+      "Bash(bun run:*)",
+      "Bash(npm init:*)",
+      "Bash(timeout 8 npx motion-canvas serve)",
+      "Bash(ffmpeg -version)",
+      "Bash(npm view:*)",
+      "Bash(ls:*)"
     ]
   }
 }

@@ -56,7 +56,7 @@ const UpdatesPage = () => {
             <ChatMessage role="user" content="What has Dhruv been up to recently?" />
             <ChatMessage role="assistant" content={introMessage} />
 
-            <div className="updates-list">
+            <div className="updates-list rise-stagger">
               {updatesData.map((update, index) => {
                 const slug = update.title.replace(/\s+/g, '-').toLowerCase();
                 return (

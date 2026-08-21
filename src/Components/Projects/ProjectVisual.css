@@ -1,0 +1,661 @@
+/* ==========================================================================
+   Animated project cover art
+
+   Each scene is drawn in its project's own tokens, delivered as
+   --pv-bg / --pv-ink / --pv-accent / --pv-accent-2 / --pv-accent-3 from
+   projects.json. Nothing here hardcodes a color except the few fills that
+   ARE the project's data (traffic vehicles, exhibit types), which are set
+   inline in the JSX.
+
+   All motion is transform/opacity, and paused until the card scrolls in.
+   ========================================================================== */
+
+.project-visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--pv-bg, var(--surface-3));
+}
+
+.project-visual svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.pj-row-link:hover .project-visual svg,
+.pj-row.is-active .project-visual svg {
+  transform: scale(1.03);
+}
+
+/* Park every animation until the card is on screen. */
+.project-visual [class^='pv-'],
+.project-visual [class*=' pv-'] {
+  animation-play-state: paused;
+}
+
+.project-visual.is-visible [class^='pv-'],
+.project-visual.is-visible [class*=' pv-'] {
+  animation-play-state: running;
+}
+
+/* ── MTS · broadcast HUD ─────────────────────────────────────────────────── */
+
+.pv-hud-rule {
+  stroke: var(--pv-accent);
+  stroke-width: 1;
+  opacity: 0.45;
+}
+
+.pv-hud-tick {
+  stroke: var(--pv-accent);
+  stroke-width: 1;
+  opacity: 0.28;
+}
+
+.pv-hud-ring {
+  stroke: var(--pv-accent);
+  stroke-width: 1.5;
+  transform-origin: 34px 56px;
+  animation: pv-ring-out 2.6s var(--ease-out) infinite;
+}
+
+@keyframes pv-ring-out {
+  from { transform: scale(0.45); opacity: 0.9; }
+  to { transform: scale(2.4); opacity: 0; }
+}
+
+.pv-hud-core {
+  fill: var(--pv-accent);
+}
+
+.pv-hud-wave {
+  fill: var(--pv-accent);
+  opacity: 0.85;
+  transform-origin: 50% 56px;
+  animation: pv-scale-y 1s var(--ease) infinite alternate;
+}
+
+@keyframes pv-scale-y {
+  from { transform: scaleY(0.2); }
+  to { transform: scaleY(1.7); }
+}
+
+/* ── 877UNMPLYD · real-wage map ──────────────────────────────────────────── */
+
+.pv-wage-cell {
+  fill: var(--pv-accent);
+  opacity: 0.16;
+  animation: pv-wage-shade 4.4s var(--ease) infinite alternate;
+}
+
+.pv-wage-hot {
+  fill: var(--pv-accent);
+  opacity: 0.6;
+  animation-duration: 3.2s;
+}
+
+@keyframes pv-wage-shade {
+  from { opacity: 0.12; }
+  to { opacity: 0.7; }
+}
+
+.pv-wage-live {
+  fill: var(--pv-accent-2);
+  animation: pv-blink 1.6s steps(1, end) infinite;
+}
+
+@keyframes pv-blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0.15; }
+}
+
+.pv-wage-rule {
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  opacity: 0.25;
+}
+
+/* ── Uncertainty Labs · posterior ────────────────────────────────────────── */
+
+.pv-band {
+  fill: var(--pv-ink);
+  opacity: 0.09;
+  transform-origin: 96px 84px;
+  animation: pv-breathe 6s var(--ease) infinite alternate;
+}
+
+@keyframes pv-breathe {
+  from { transform: scale(0.94, 0.8); }
+  to { transform: scale(1.02, 1.06); }
+}
+
+.pv-density {
+  stroke: var(--pv-ink);
+  stroke-width: 1.75;
+  opacity: 0.8;
+  transform-origin: 96px 84px;
+  animation: pv-breathe 6s var(--ease) infinite alternate;
+}
+
+.pv-axis {
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  opacity: 0.3;
+}
+
+.pv-mean {
+  stroke: var(--pv-accent-2);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+  opacity: 0.7;
+}
+
+.pv-draw {
+  fill: var(--pv-ink);
+  opacity: 0.5;
+  animation: pv-drop-in 3.4s var(--ease) infinite;
+}
+
+@keyframes pv-drop-in {
+  0% { transform: translateY(-16px); opacity: 0; }
+  20% { opacity: 0.75; }
+  70% { transform: none; opacity: 0.55; }
+  100% { transform: none; opacity: 0; }
+}
+
+/* ── CONDITIONAL · threshold ─────────────────────────────────────────────── */
+
+.pv-cd-axis {
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  opacity: 0.35;
+}
+
+.pv-cd-threshold {
+  stroke: var(--pv-accent);
+  stroke-width: 1;
+  stroke-dasharray: 5 5;
+  opacity: 0.75;
+}
+
+.pv-cd-path {
+  stroke: var(--pv-ink);
+  stroke-width: 1.75;
+  stroke-linejoin: round;
+  stroke-dasharray: 210;
+  animation: pv-draw-line 5s var(--ease-out) infinite;
+}
+
+@keyframes pv-draw-line {
+  0% { stroke-dashoffset: 210; }
+  60%, 100% { stroke-dashoffset: 0; }
+}
+
+.pv-cd-cross {
+  fill: var(--pv-accent);
+  transform-origin: 140px 40px;
+  animation: pv-signal 5s var(--ease-out) infinite;
+}
+
+@keyframes pv-signal {
+  0%, 45% { transform: scale(0); opacity: 0; }
+  58% { transform: scale(1.6); opacity: 1; }
+  70%, 100% { transform: scale(1); opacity: 1; }
+}
+
+.pv-cd-mono {
+  fill: var(--pv-ink);
+  opacity: 0.25;
+  animation: pv-fade-cycle 4s var(--ease) infinite;
+}
+
+@keyframes pv-fade-cycle {
+  0%, 70%, 100% { opacity: 0.18; }
+  30% { opacity: 0.6; }
+}
+
+/* ── The Spread · odds ───────────────────────────────────────────────────── */
+
+.pv-sp-axis {
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  opacity: 0.25;
+}
+
+.pv-sp-yes,
+.pv-sp-no {
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  animation: pv-draw-odds 5.2s var(--ease-out) infinite;
+}
+
+.pv-sp-yes { stroke: var(--pv-accent-2); }
+.pv-sp-no { stroke: var(--pv-accent-3); }
+
+@keyframes pv-draw-odds {
+  0% { stroke-dashoffset: 220; }
+  55%, 100% { stroke-dashoffset: 0; }
+}
+
+.pv-sp-head {
+  animation: pv-run-right 5.2s var(--ease-out) infinite;
+}
+
+.pv-sp-head-yes { fill: var(--pv-accent-2); }
+.pv-sp-head-no { fill: var(--pv-accent-3); }
+
+@keyframes pv-run-right {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  55% { transform: translate(166px, -56px); opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+.pv-sp-tick {
+  fill: var(--pv-accent);
+  opacity: 0.35;
+  animation: pv-fade-cycle 3.6s var(--ease) infinite;
+}
+
+/* ── Polygrapher · newsletter ────────────────────────────────────────────── */
+
+.pv-pg-frame {
+  fill: var(--pv-bg);
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  stroke-opacity: 0.2;
+}
+
+.pv-pg-header {
+  fill: var(--pv-ink);
+  opacity: 0.9;
+}
+
+.pv-pg-row {
+  fill: var(--pv-accent);
+  opacity: 0.25;
+  transform-origin: left center;
+  animation: pv-slot-in 3.6s var(--ease-out) infinite;
+}
+
+@keyframes pv-slot-in {
+  0% { transform: translateX(-26px) scaleX(0.4); opacity: 0; }
+  25%, 80% { transform: none; opacity: 0.45; }
+  100% { opacity: 0; }
+}
+
+.pv-pg-market {
+  fill: var(--pv-accent);
+  animation: pv-pulse-fade 3.6s var(--ease) infinite;
+}
+
+@keyframes pv-pulse-fade {
+  0%, 100% { opacity: 0.3; }
+  25% { opacity: 1; }
+}
+
+.pv-pg-wire {
+  stroke: var(--pv-accent);
+  stroke-width: 1;
+  opacity: 0.3;
+}
+
+/* ── Indexr · weights ────────────────────────────────────────────────────── */
+
+.pv-ix-bar {
+  fill: var(--pv-accent);
+  opacity: 0.4;
+  transform-origin: 50% 96px;
+  animation: pv-weight 3.2s var(--ease) infinite alternate;
+}
+
+@keyframes pv-weight {
+  from { transform: scaleY(0.3); opacity: 0.25; }
+  to { transform: scaleY(1); opacity: 0.6; }
+}
+
+.pv-ix-line {
+  stroke: var(--pv-accent-2);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-dasharray: 170;
+  animation: pv-draw-line 4.4s var(--ease-out) infinite;
+}
+
+.pv-ix-dot {
+  fill: var(--pv-accent-2);
+  animation: pv-fade-cycle 3.2s var(--ease) infinite;
+}
+
+/* ── SafeChoices · Monte Carlo ───────────────────────────────────────────── */
+
+.pv-mc-axis {
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  opacity: 0.2;
+}
+
+.pv-mc-path {
+  stroke: var(--pv-accent);
+  stroke-width: 1.5;
+  opacity: 0.4;
+  stroke-dasharray: 200;
+  animation: pv-draw-line 4.8s var(--ease-out) infinite;
+}
+
+.pv-mc-median {
+  stroke: var(--pv-accent-2);
+  stroke-width: 2.25;
+  opacity: 0.95;
+}
+
+.pv-mc-start {
+  fill: var(--pv-accent-2);
+}
+
+/* ── RushTracker · roster ────────────────────────────────────────────────── */
+
+.pv-rt-row {
+  fill: var(--pv-ink);
+  opacity: 0.07;
+}
+
+.pv-rt-face {
+  fill: var(--pv-ink);
+  opacity: 0.3;
+}
+
+.pv-rt-name {
+  fill: var(--pv-ink);
+  opacity: 0.28;
+}
+
+.pv-rt-chip {
+  fill: var(--pv-ink);
+  opacity: 0.25;
+  transform-origin: center;
+  animation: pv-chip-settle 4s var(--ease-out) infinite;
+}
+
+.pv-rt-chip-yes { fill: var(--pv-accent); }
+.pv-rt-chip-maybe { fill: var(--pv-accent-2); }
+
+@keyframes pv-chip-settle {
+  0%, 55% { opacity: 0.2; transform: scaleX(0.6); }
+  70%, 100% { opacity: 0.9; transform: scaleX(1); }
+}
+
+/* ── UFO · redacted records ──────────────────────────────────────────────── */
+
+.pv-ufo-globe {
+  stroke: var(--pv-accent);
+  stroke-width: 1.25;
+  opacity: 0.5;
+}
+
+.pv-ufo-lat {
+  stroke: var(--pv-accent);
+  stroke-width: 1;
+  opacity: 0.25;
+  transform-origin: 62px 56px;
+  animation: pv-lat-turn 7s var(--ease) infinite alternate;
+}
+
+@keyframes pv-lat-turn {
+  from { transform: scaleX(0.2); }
+  to { transform: scaleX(1); }
+}
+
+.pv-ufo-ping {
+  fill: var(--pv-accent);
+  transform-origin: center;
+  animation: pv-ping-flash 3s var(--ease-out) infinite;
+}
+
+@keyframes pv-ping-flash {
+  0%, 65%, 100% { opacity: 0.3; transform: scale(0.8); }
+  20% { opacity: 1; transform: scale(1.6); }
+}
+
+.pv-ufo-doc {
+  fill: var(--pv-ink);
+  opacity: 0.06;
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  stroke-opacity: 0.18;
+}
+
+.pv-ufo-text {
+  fill: var(--pv-ink);
+  opacity: 0.3;
+}
+
+.pv-ufo-redact {
+  fill: var(--pv-ink);
+  opacity: 0.85;
+  transform-origin: left center;
+  animation: pv-redact 4.4s var(--ease-out) infinite;
+}
+
+@keyframes pv-redact {
+  0%, 20% { transform: scaleX(0); }
+  40%, 90% { transform: scaleX(1); }
+  100% { transform: scaleX(1); }
+}
+
+/* ── Search Every Exhibit ────────────────────────────────────────────────── */
+
+.pv-ex-field {
+  fill: var(--pv-ink);
+  opacity: 0.09;
+}
+
+.pv-ex-caret {
+  fill: var(--pv-accent);
+  animation: pv-blink 1s steps(1, end) infinite;
+}
+
+.pv-ex-card {
+  opacity: 0.35;
+  transform-origin: center;
+  animation: pv-rank 4s var(--ease-out) infinite;
+}
+
+@keyframes pv-rank {
+  0%, 100% { opacity: 0.28; transform: translateY(0) scale(0.97); }
+  35% { opacity: 1; transform: translateY(-4px) scale(1); }
+}
+
+.pv-ex-meta {
+  fill: var(--pv-ink);
+  opacity: 0.28;
+}
+
+.pv-ex-scan {
+  fill: var(--pv-accent);
+  opacity: 0.7;
+  animation: pv-scan-across 4s var(--ease) infinite;
+}
+
+@keyframes pv-scan-across {
+  0% { transform: translateX(14px); opacity: 0; }
+  12%, 88% { opacity: 0.7; }
+  100% { transform: translateX(178px); opacity: 0; }
+}
+
+/* ── Secondaries · SPV layers ────────────────────────────────────────────── */
+
+.pv-spv-layer {
+  fill: var(--pv-ink);
+  opacity: 0.1;
+  transform-origin: left center;
+  animation: pv-layer-in 5.5s var(--ease-out) infinite;
+}
+
+@keyframes pv-layer-in {
+  0% { transform: scaleX(0.2); opacity: 0; }
+  20%, 72% { transform: none; opacity: 0.12; }
+  100% { transform: none; opacity: 0.04; }
+}
+
+.pv-spv-share {
+  fill: var(--pv-accent);
+  animation: pv-descend 5.5s var(--ease) infinite;
+}
+
+@keyframes pv-descend {
+  0% { transform: translate(0, 0); opacity: 0; }
+  12% { opacity: 1; }
+  35% { transform: translate(52px, 26px); }
+  60% { transform: translate(104px, 52px); }
+  74% { transform: translate(138px, 52px); opacity: 1; }
+  80%, 100% { transform: translate(138px, 52px); opacity: 0; }
+}
+
+.pv-spv-void {
+  stroke: var(--pv-accent-2);
+  stroke-width: 1.5;
+  opacity: 0;
+  animation: pv-void 5.5s var(--ease-out) infinite;
+}
+
+.pv-spv-strike {
+  stroke: var(--pv-accent-2);
+  stroke-width: 2;
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+  animation: pv-strike 5.5s var(--ease-out) infinite;
+}
+
+@keyframes pv-void {
+  0%, 76% { opacity: 0; }
+  86%, 96% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+@keyframes pv-strike {
+  0%, 78% { stroke-dashoffset: 180; }
+  90%, 96% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* ── Funds · 13F holdings ────────────────────────────────────────────────── */
+
+.pv-fd-label {
+  fill: var(--pv-ink);
+  opacity: 0.25;
+}
+
+.pv-fd-track {
+  fill: var(--pv-ink);
+  opacity: 0.1;
+}
+
+.pv-fd-bar {
+  fill: var(--pv-ink);
+  opacity: 0.45;
+  transform-origin: left center;
+  animation-name: pv-rotate-weight;
+  animation-timing-function: var(--ease);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.pv-fd-bar-hot {
+  fill: var(--pv-accent);
+  opacity: 0.85;
+}
+
+@keyframes pv-rotate-weight {
+  from { transform: scaleX(0.18); }
+  to { transform: scaleX(0.92); }
+}
+
+/* ── Water · 500 mL vs a sip ─────────────────────────────────────────────── */
+
+.pv-wt-bottle {
+  stroke: var(--pv-ink);
+  stroke-width: 1.5;
+  stroke-opacity: 0.4;
+}
+
+.pv-wt-bottle-fill {
+  fill: var(--pv-accent);
+  opacity: 0.3;
+  transform-origin: 51px 91px;
+  animation: pv-drain 5s var(--ease) infinite;
+}
+
+@keyframes pv-drain {
+  0%, 15% { transform: scaleY(1); opacity: 0.35; }
+  55%, 100% { transform: scaleY(0.06); opacity: 0.5; }
+}
+
+.pv-wt-glass {
+  stroke: var(--pv-ink);
+  stroke-width: 1.5;
+  stroke-opacity: 0.4;
+}
+
+.pv-wt-sip {
+  fill: var(--pv-accent);
+  opacity: 0.9;
+}
+
+.pv-wt-arrow {
+  stroke: var(--pv-ink);
+  stroke-width: 1;
+  opacity: 0.35;
+}
+
+.pv-wt-head {
+  fill: var(--pv-ink);
+  opacity: 0.35;
+}
+
+.pv-wt-drop {
+  fill: var(--pv-accent);
+  animation: pv-fall 3.6s var(--ease) infinite;
+}
+
+@keyframes pv-fall {
+  0% { transform: translateY(30px); opacity: 0; }
+  15% { opacity: 1; }
+  60% { transform: translateY(86px); opacity: 1; }
+  65%, 100% { transform: translateY(86px); opacity: 0; }
+}
+
+/* ── Reduced motion: keep every composition, drop the movement ───────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-visual [class^='pv-'],
+  .project-visual [class*=' pv-'],
+  .project-visual.is-visible [class^='pv-'],
+  .project-visual.is-visible [class*=' pv-'] {
+    animation: none !important;
+  }
+
+  .pv-cd-path,
+  .pv-sp-yes,
+  .pv-sp-no,
+  .pv-ix-line,
+  .pv-mc-path,
+  .pv-spv-strike {
+    stroke-dashoffset: 0;
+  }
+
+  .pv-sp-head,
+  .pv-spv-share,
+  .pv-wt-drop,
+  .pv-draw {
+    opacity: 0.6;
+  }
+
+  .pv-fd-bar { transform: scaleX(0.7); }
+  .pv-spv-void { opacity: 0.5; }
+  .pv-cd-cross { opacity: 1; transform: none; }
+}

@@ -141,7 +141,7 @@ const ChatsPage = () => {
 
             {/* Chats */}
             <h2 className="section-header">Chats</h2>
-            <div className="chats-grid">
+            <div className="chats-grid rise-stagger">
               {sortedChats.map((chat, index) => (
                 <Link
                   key={index}
@@ -164,7 +164,7 @@ const ChatsPage = () => {
 
             {/* Prediction Market Research */}
             <h2 className="section-header">Prediction Market Research</h2>
-            <div className="chats-grid">
+            <div className="chats-grid rise-stagger">
               {sortedResearch.map((research, index) => (
                 <Link
                   key={index}

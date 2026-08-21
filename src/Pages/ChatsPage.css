@@ -1,11 +1,9 @@
 .chats-page {
   display: flex;
   min-height: 100vh;
-  background-color: #212121;
-  color: #ececf1;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: var(--surface-2);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   overflow-x: hidden;
   position: relative;
 }
@@ -19,12 +17,14 @@
 }
 
 .section-header {
-  font-size: 1.25rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  color: #8e8ea0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
   margin: 2.5rem 0 1rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid var(--line-subtle);
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -33,21 +33,25 @@
 .section-header-link {
   font-size: 0.8125rem;
   font-weight: 400;
-  color: #8e8ea0;
+  color: var(--text-muted);
   text-decoration: none;
   transition: color 0.2s;
   white-space: nowrap;
 }
 
 .section-header-link:hover {
-  color: #ececf1;
+  color: var(--text-primary);
 }
 
 .substack-card {
-  background-color: #303030;
-  border-radius: 1rem;
+  background-color: var(--surface-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -56,8 +60,10 @@
 }
 
 .substack-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  background-color: var(--surface-hover);
+  border-color: var(--accent-ring);
+  box-shadow: var(--shadow-lg);
 }
 
 .substack-card-content {
@@ -96,13 +102,13 @@
 .substack-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #ececf1;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .substack-subtitle {
   font-size: 0.875rem;
-  color: #8e8ea0;
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -115,10 +121,14 @@
 }
 
 .chat-card {
-  background-color: #303030;
-  border-radius: 1rem;
+  background-color: var(--surface-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--dur) var(--ease-out),
+    box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
   display: flex;
   flex-direction: column;
   text-decoration: none;
@@ -126,8 +136,18 @@
 }
 
 .chat-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  background-color: var(--surface-hover);
+  border-color: var(--accent-ring);
+  box-shadow: var(--shadow-lg);
+}
+
+.chat-card:hover .chat-title {
+  color: var(--accent-bright);
+}
+
+.chat-card:hover .chat-image {
+  transform: scale(1.04);
 }
 
 .chat-card-content {
@@ -154,6 +174,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
 }
 
 .chat-info {
@@ -164,22 +185,31 @@
 }
 
 .chat-title {
-  font-size: 1.75rem;
+  font-size: 1.375rem;
   font-weight: 600;
-  color: #ececf1;
+  color: var(--text-primary);
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  transition: color var(--dur) var(--ease);
 }
 
+/* Date rendered as a metadata pill. */
 .chat-date {
-  font-size: 0.875rem;
-  color: #8e8ea0;
+  align-self: flex-start;
+  padding: 0.1875rem 0.5rem;
+  border-radius: var(--r-pill);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--line-subtle);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--text-muted);
   margin: 0;
 }
 
 .chat-description {
-  font-size: 0.9375rem;
-  color: #d1d5db;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
   margin-top: 0.5rem;
@@ -213,7 +243,7 @@
   }
 
   .chat-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
   .substack-card-content {

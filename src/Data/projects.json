@@ -1,120 +1,277 @@
 [
     {
+        "name": "MTS",
+        "desc": "The public web app and backend for MTS, a livestreamed news and talk show on X. A Cloudflare Worker owns the database, signs JWTs for the admin UI, proxies the X live-broadcast API, mirrors a Discord channel into the home-page chat, and runs crons that refresh feeds and the show calendar.",
+        "tech": [
+            "React",
+            "TypeScript",
+            "Hono",
+            "Cloudflare Workers",
+            "Neon Postgres",
+            "R2",
+            "Turborepo"
+        ],
+        "link": "https://www.mts.now/",
+        "visual": {
+            "scene": "mts-hud",
+            "bg": "#040609",
+            "ink": "#c5f6ff",
+            "accent": "#46d4e8"
+        },
+        "domain": "broadcast systems"
+    },
+    {
+        "name": "877UNMPLYD",
+        "desc": "Site and data platform for a live call-in show about unemployment. A Worker ingests seven public datasets into D1 each week, feeding an interactive map of 72 cities that ranks real median wage — wages divided by local price parity — so Oklahoma City outranks Los Angeles.",
+        "tech": [
+            "React",
+            "TypeScript",
+            "Cloudflare Workers",
+            "D1",
+            "Vite",
+            "Turborepo"
+        ],
+        "link": "https://877unmplyd.com",
+        "visual": {
+            "scene": "wage-map",
+            "bg": "#f6f5f2",
+            "ink": "#33322e",
+            "accent": "#a573d4",
+            "accent2": "#d92020"
+        },
+        "domain": "civic data"
+    },
+    {
+        "name": "Uncertainty Labs",
+        "desc": "Bayesian state-space models that estimate what prices are actually worth under uncertainty, using microstructure — volume, spread, orderbook depth — to quantify observation noise. First product is Polyscope: a Student-t state-space model on Polymarket orderbooks producing three-day probabilistic forecasts, backed by a Rust implementation of the WALNUTS sampler.",
+        "tech": [
+            "Rust",
+            "Python",
+            "Bayesian inference",
+            "MCMC",
+            "Next.js",
+            "Turborepo"
+        ],
+        "link": "https://uncertainty-labs.com/brief?code=RLLP378D",
+        "visual": {
+            "scene": "posterior",
+            "bg": "#fafaf8",
+            "ink": "#37352f",
+            "accent": "#37352f",
+            "accent2": "#9b9a97"
+        },
+        "domain": "inference"
+    },
+    {
+        "name": "CONDITIONAL",
+        "desc": "An AI-native prediction market platform built on the thesis that information buyers, not bettors, should subsidize liquidity — and that prices must stay private, since public signals are worthless to sophisticated buyers. Eleven subsystems spanning forecasting agents, a trusted-execution layer, and private and public research intake.",
+        "tech": [
+            "Next.js",
+            "Python",
+            "Docker",
+            "LLM agents",
+            "Postgres"
+        ],
+        "link": "https://forecast.conditional-markets.com/viz?code=XDMLWHH3J",
+        "visual": {
+            "scene": "threshold",
+            "bg": "#fafafa",
+            "ink": "#0f0f0f",
+            "accent": "#b55c4a"
+        },
+        "domain": "forecasting"
+    },
+    {
         "name": "The Spread",
         "desc": "A comprehensive prediction market news and analysis platform. Aggregates markets, odds movements, and trading activity across prediction market platforms into a single destination.",
-        "tech": ["React", "Python", "Supabase", "Cloudflare", "Railway", "Render"],
+        "tech": [
+            "React",
+            "Python",
+            "Supabase",
+            "Cloudflare",
+            "Railway",
+            "Render"
+        ],
         "link": "https://thespread.news/",
-        "image": "/images/projects/spreadDemoPic.jpg"
+        "visual": {
+            "scene": "odds-cross",
+            "bg": "#131820",
+            "ink": "#e6edf3",
+            "accent": "#2e5cff",
+            "accent2": "#3fb950",
+            "accent3": "#f85149"
+        },
+        "domain": "prediction markets"
     },
     {
         "name": "Polygrapher",
         "desc": "Newsletter automation tool built for Polymarket. Pulls relevant markets and trades via APIs, lets editors customize content, optimizes HTML for email clients (Dub links, Cloudinary, minification). Goes out to 200k+ subscribers and drove $1M+ in new deposits in ~1 month.",
-        "tech": ["React", "Node.js", "Polymarket API", "Cloudinary", "Dub", "HuggingFace", "Docker"],
+        "tech": [
+            "React",
+            "Node.js",
+            "Polymarket API",
+            "Cloudinary",
+            "Dub",
+            "HuggingFace",
+            "Docker"
+        ],
         "video": "/videos/Polygrapher Demo.mp4",
         "link": "/demos/polygrapher",
-        "image": "/images/projects/polygrapherDemoPic.jpg"
+        "visual": {
+            "scene": "newsletter",
+            "bg": "#ffffff",
+            "ink": "#1d2b3a",
+            "accent": "#2b97d4"
+        },
+        "domain": "editorial tooling"
     },
     {
         "name": "Indexr",
         "desc": "Real-time searchable index of Polymarket markets and large trades. Syncs data every 5 minutes, flags whale traders (>$5K trades), tracks win rates, and filters by liquidity. Surfaces NewWhale, WinningTrader, and Contrarian behavioral tags.",
-        "tech": ["React", "Node.js", "Supabase", "Render", "Polymarket API", "Vercel"],
+        "tech": [
+            "React",
+            "Node.js",
+            "Supabase",
+            "Render",
+            "Polymarket API",
+            "Vercel"
+        ],
         "link": "https://pmindexr.vercel.app/",
-        "image": "/images/projects/indexrDemoPic.jpg"
-    },
-    {
-        "name": "Enflow",
-        "desc": "System that allows police departments to build documentation workflows that they can automatically fill out through keyword extraction on daily logs via LLMs",
-        "tech": ["React", "Python", "OpenAI API", "Parallelization through Redis", "HuggingFace"],
-        "video": "https://drive.google.com/file/d/1E5m896hOm0O4y7nmx_PkjhfrjvA7h8Ss/view?usp=sharing",
-        "link": "https://www.tryenflow.com/",
-        "image": "/images/projects/enflowDemoPic.jpg"
-    },
-    {
-        "name": "PolyProfiler",
-        "desc": "Trading analytics platform for Polymarket. Input any wallet address to generate calibration curves, price distribution histograms, trading timelines for biggest wins/losses, and a trader fingerprint radar chart showing risk tolerance, market diversity, and holding patterns.",
-        "tech": ["React", "Node.js", "Polymarket API", "Chart.js"],
-        "link": "https://polyprofiler.vercel.app/",
-        "image": "/images/projects/polyprofilerDemoPic.jpg"
+        "visual": {
+            "scene": "index-weights",
+            "bg": "#131820",
+            "ink": "#e6edf3",
+            "accent": "#2e5cff",
+            "accent2": "#4a7aff"
+        },
+        "domain": "prediction markets"
     },
     {
         "name": "SafeChoices",
         "desc": "Research on whether 'safe' prediction market bets (90%+ probability) can beat Treasury rates. Includes Polymarket API data collection, probability calibration analysis across confidence bands, and Monte Carlo simulations modeling single-fund, threshold, and multi-fund portfolio strategies. Dataset published on Kaggle.",
-        "tech": ["Python", "Jupyter", "Polymarket API", "Monte Carlo"],
+        "tech": [
+            "Python",
+            "Jupyter",
+            "Polymarket API",
+            "Monte Carlo"
+        ],
         "link": "https://droov-safechoicessimulation.hf.space/",
-        "image": "/images/projects/safechoicesDemoPic.jpg"
-    },
-    {
-        "name": "PRDucer",
-        "desc": "Developed for the Wharton School's Executive MBA classes. A step-by-step LLM assisted walkthrough of creating a technically sound PRD that can be given to Cursor, Claude Code, or any other AI assisted tool.",
-        "tech": ["React", "OpenAI API"],
-        "link": "https://prducer.vercel.app/",
-        "image": "/images/projects/prducerDemoPic.jpg"
-    },
-    {
-        "name": "AIrchemedes",
-        "desc": "A GPT-powered assistant for all steps of the entrepreneurial process. Takes a few keywords and walks you through building an executable product — from ideation to technical specification.",
-        "tech": ["React", "OpenAI API"],
-        "link": "https://www.airchemedes.com/",
-        "image": "/images/projects/airchemedesDemoPic.jpg"
+        "visual": {
+            "scene": "monte-carlo",
+            "bg": "#0a0f1a",
+            "ink": "#f9fafb",
+            "accent": "#3b82f6",
+            "accent2": "#10b981"
+        },
+        "domain": "simulation"
     },
     {
         "name": "RushTracker",
         "desc": "A rush management system for Greek life organizations. Tracks prospective members through the rush process with a full frontend and backend.",
-        "tech": ["React", "Node.js", "MongoDB"],
+        "tech": [
+            "React",
+            "Node.js",
+            "MongoDB"
+        ],
         "link": "https://github.com/dhruv575/rushtracker-frontend",
-        "image": "/images/projects/rushtrackerDemoPic.jpg"
+        "visual": {
+            "scene": "roster",
+            "bg": "#12151a",
+            "ink": "#e8eaed",
+            "accent": "#4caf50",
+            "accent2": "#f5a623"
+        },
+        "domain": "operations"
     },
     {
-        "name": "Contact Scraper",
-        "desc": "Ruby on Rails pipeline for scraping school contact information at scale. Multi-stage workflow with VPN rotation for rate limit handling, Sidekiq background jobs with Redis, and CSV export. Includes a Sidekiq web UI for job monitoring.",
-        "tech": ["Ruby on Rails", "Sidekiq", "Redis"],
-        "link": "https://github.com/dhruv575/contact-scraper",
-        "image": "/images/projects/contactScraperDemoPic.jpg"
+        "name": "Inside the UFO Release",
+        "desc": "An MTS drop over war.gov's first UFO/UAP release: 161 declassified records from the FBI, NASA, and the Departments of War and State, geocoded onto an interactive globe and indexed for full-text search.",
+        "tech": [
+            "Next.js",
+            "React",
+            "Full-text search",
+            "Geocoding",
+            "WebGL"
+        ],
+        "link": "https://ufo.mts.now/",
+        "visual": {
+            "scene": "redacted-globe",
+            "bg": "#0e0e10",
+            "ink": "#e9eaee",
+            "accent": "#ffd60a"
+        },
+        "domain": "editorial data"
     },
     {
-        "name": "Traffic Simulation",
-        "desc": "Traffic Simulation modeling 34th and Spruce St in Philadelphia and displaying the reduction in traffic violations caused by addition of speed bumps and traffic cameras",
-        "tech": ["React"],
-        "video": "https://drive.google.com/file/d/15a9ZroGOL1GnWAXxoOiAhluw4a7I2HSH/view?usp=sharing",
-        "link": "https://trafficsim.vercel.app/",
-        "image": "/images/projects/trafficSimDemoPic.jpg"
+        "name": "Search Every Exhibit",
+        "desc": "An MTS drop offering semantic search across all 199 trial-admitted exhibits in OpenAI v. Musk — emails, journal pages, contracts, screenshots — each rendered in a form-factor viewer that matches the original document.",
+        "tech": [
+            "Next.js",
+            "React",
+            "Semantic search",
+            "Embeddings"
+        ],
+        "link": "https://evidence.mts.now/",
+        "visual": {
+            "scene": "exhibit-search",
+            "bg": "#0e0e10",
+            "ink": "#e9eaee",
+            "accent": "#6a99ff"
+        },
+        "domain": "retrieval"
     },
     {
-        "name": "Highs and Lows",
-        "desc": "A social media app to track the highs, lows, and ratings per day of you and your buddies. Inspired by a Hack4Impact tradition.",
-        "tech": ["React"],
-        "prd": "https://docs.google.com/document/d/1ofIfslKE9IeGedqMm0sfarvPtYtd_K-n3HIBffgLAgU/edit?usp=sharing",
-        "link": "https://www.handl.club/",
-        "image": "/images/projects/handlDemoPic.jpg"
+        "name": "Inside the AI Grey Market",
+        "desc": "An MTS drop tracing 1,000 ex-employee shares through three layers of SPVs to 47 retail-accredited LPs at a 39 percent cumulative premium — nine self-paced steps ending at the announcement that voided every unauthorized secondary transfer.",
+        "tech": [
+            "Next.js",
+            "React",
+            "Data visualization"
+        ],
+        "link": "https://drops.mts.now/secondaries/",
+        "visual": {
+            "scene": "spv-layers",
+            "bg": "#0e0e10",
+            "ink": "#e9eaee",
+            "accent": "#4ade80",
+            "accent2": "#f87171"
+        },
+        "domain": "editorial data"
     },
     {
-        "name": "Squirrels without Morality",
-        "desc": "Bringing Penn's favorite (and only) Cards against Humanity clone to the world wide web in both single player and multiplayer modes.",
-        "tech": ["React", "Web Socket"],
-        "link": "https://www.swithoutm.com/",
-        "image": "/images/projects/swmDemoPic.jpg"
+        "name": "How the Smart Money Reads AI",
+        "desc": "An MTS drop built on every 13F-HR filing since mid-2023 from 45 curated funds, joined to Form 4 insider flow and adjusted-close prices, surfacing rotation and consensus calls quarter by quarter.",
+        "tech": [
+            "Next.js",
+            "React",
+            "SEC EDGAR",
+            "Python",
+            "Data visualization"
+        ],
+        "link": "https://drops.mts.now/funds/",
+        "visual": {
+            "scene": "holdings",
+            "bg": "#f5f5f7",
+            "ink": "#1d1d1f",
+            "accent": "#d62828"
+        },
+        "domain": "market data"
     },
     {
-        "name": "PennBTI",
-        "desc": "An MBTI test built only with Penn-related questions + a matching feature (because what kind of founder would I be if I didn't try my hand at dating apps)",
-        "tech": ["React"],
-        "link": "https://www.pennbti.com/",
-        "image": "/images/projects/pennbtiDemoPic.jpg"
-    },
-    {
-        "name": "Presidential Debate Data",
-        "desc": "Using the transcript to analyze the lexical, tonal, and topical patterns of the first Presidential debate of 2024!",
-        "tech": ["Regex", "TextBlob"],
-        "tiktok": "https://www.tiktok.com/@droov.gupta/video/7385624907767368990",
-        "link": "https://colab.research.google.com/drive/1T7K6D2nUTs7-6A1_D4omn1tShRpML5Te?usp=sharing",
-        "image": "/images/projects/debate.jpg"
-    },
-    {
-        "name": "Analyzing Music",
-        "desc": "A combination of some Soundcloud & Genius scraping and a bit of Textblob to analyze what each artist's audeince values!",
-        "tech": ["Selenium", "Textblob"],
-        "tiktok": "https://www.tiktok.com/@droov.gupta/video/7386451081515093279",
-        "link": "https://colab.research.google.com/drive/1iG9vKnN3cNScm80KOt6RIKaMwDlAUaW8?usp=sharing",
-        "image": "/images/projects/music.jpg"
+        "name": "Why AI's Water Problem Is Overblown",
+        "desc": "An MTS drop auditing the viral \"500 mL per query\" figure, which conflated per-conversation with per-prompt on stale 2022 hardware. A bottom-up accounting lands at roughly 3 mL — about a sip — and puts a single hamburger at two million prompts.",
+        "tech": [
+            "Next.js",
+            "React",
+            "Data visualization"
+        ],
+        "link": "https://drops.mts.now/water/",
+        "visual": {
+            "scene": "sip-vs-bottle",
+            "bg": "#0e0e10",
+            "ink": "#e9eaee",
+            "accent": "#5dd0c8"
+        },
+        "domain": "editorial data"
     }
 ]

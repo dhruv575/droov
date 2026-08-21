@@ -68,3 +68,40 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Search
+
+The site search has two passes. A lexical pass over `src/lib/searchCorpus.js`
+returns matches instantly as you type; a second pass sends the query plus a
+shortlist of candidate pages to OpenRouter, which writes a one-or-two sentence
+answer and re-ranks the matches with a short reason for each.
+
+The OpenRouter key is never in the client bundle. The browser talks to
+`POST /api/search`, and only that server-side handler holds the key.
+
+```
+src/lib/searchCorpus.js   catalog of every searchable page + lexical scoring
+src/lib/aiSearch.js       browser client for /api/search
+api/_lib/search-core.js   shared handler: validation, rate limit, OpenRouter call
+api/search.js             Vercel / Node adapter
+functions/api/search.js   Cloudflare Pages adapter
+vite.config.js            serves /api/search during `npm start`
+```
+
+### Configuration
+
+Copy `.env.example` to `.env` and fill in:
+
+| Variable | Purpose |
+| --- | --- |
+| `OPENROUTER_API_KEY` | Required. Server-side only. |
+| `OPENROUTER_MODEL` | Defaults to `openai/gpt-5.6-luna`. |
+| `SITE_URL` | Sent to OpenRouter for dashboard attribution. |
+
+None of these use a `VITE_` prefix, which is what keeps Vite from inlining them
+into the client bundle. Set the same names as secrets on your host — Vercel
+under Project Settings > Environment Variables, Cloudflare Pages via
+`wrangler pages secret put OPENROUTER_API_KEY`.
+
+If the endpoint is unreachable or unconfigured, search quietly falls back to the
+lexical results and shows an inline notice instead of an answer.

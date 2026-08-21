@@ -4,10 +4,46 @@ import Typewriter from '../Components/Typewriter';
 import Sidebar from '../Components/General/Sidebar';
 import SearchBar from '../Components/Search/SearchBar';
 import { useIsMobile } from '../hooks/useIsMobile';
-import { 
-  HiOutlineMenu
+import {
+  HiOutlineMenu,
+  HiOutlineDocumentText,
+  HiOutlineCube,
+  HiOutlineChatAlt2,
+  HiOutlineSparkles,
+  HiOutlineArrowNarrowRight
 } from 'react-icons/hi';
 import './NewHome.css';
+
+const CARDS = [
+  {
+    to: '/resume',
+    icon: HiOutlineDocumentText,
+    title: 'Resume',
+    description: 'View my professional experience, education, and skills',
+    accent: 'blue'
+  },
+  {
+    to: '/projects',
+    icon: HiOutlineCube,
+    title: 'Projects',
+    description: 'Explore my technical projects and data science work',
+    accent: 'teal'
+  },
+  {
+    to: '/chats',
+    icon: HiOutlineChatAlt2,
+    title: 'Chats',
+    description: 'Read my thoughts on technology, data, and more',
+    accent: 'violet'
+  },
+  {
+    to: '/updates',
+    icon: HiOutlineSparkles,
+    title: 'Updates',
+    description: "Quarterly dispatches on what I'm building and learning",
+    accent: 'orange'
+  }
+];
 
 const NewHome = () => {
   const isMobile = useIsMobile();
@@ -51,51 +87,36 @@ const NewHome = () => {
               <Typewriter text="Dhruv Gupta" />
             </div>
             <div className="typewriter-line2">
-              <Typewriter text="Penn, Jane Street, Morgan Stanley, Polymarket" />
+              <Typewriter text="Penn, Jane Street, Morgan Stanley, Polymarket, MTS" />
             </div>
           </div>
 
           {/* Search Bar */}
           <div className="search-container">
-            <SearchBar placeholder="Search through my pages" />
+            <SearchBar placeholder="Ask about me" />
           </div>
 
           {/* 2x2 Grid */}
-          <div className="grid-container">
-            <Link to="/resume" className="grid-card">
-              <h3 className="card-title">Resume</h3>
-              <p className="card-description">
-                View my professional experience, education, and skills
-              </p>
-            </Link>
-
-            <Link to="/projects" className="grid-card">
-              <h3 className="card-title">Projects</h3>
-              <p className="card-description">
-                Explore my technical projects and data science work
-              </p>
-            </Link>
-
-            <Link to="/chats" className="grid-card">
-              <h3 className="card-title">Chats</h3>
-              <p className="card-description">
-                Read my thoughts on technology, data, and more
-              </p>
-            </Link>
-
-            <Link to="/updates" className="grid-card">
-              <h3 className="card-title">Updates</h3>
-              <p className="card-description">
-                Quarterly dispatches on what I'm building and learning
-              </p>
-            </Link>
+          <div className="grid-container rise-stagger">
+            {CARDS.map(({ to, icon: Icon, title, description, accent }) => (
+              <Link to={to} key={to} className={`grid-card card-accent-${accent}`}>
+                <span className="card-icon">
+                  <Icon />
+                </span>
+                <h3 className="card-title">
+                  {title}
+                  <HiOutlineArrowNarrowRight className="card-arrow" />
+                </h3>
+                <p className="card-description">{description}</p>
+              </Link>
+            ))}
           </div>
         </div>
 
         {/* Mobile Bottom Input Bar */}
         <div className="mobile-input-bar">
           <div className="mobile-input-container">
-            <SearchBar placeholder="Search through my pages" />
+            <SearchBar placeholder="Ask about me" />
           </div>
         </div>
       </main>

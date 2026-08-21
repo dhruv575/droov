@@ -23,10 +23,11 @@
 }
 
 .user-message .message-text {
-  background-color: #303030;
+  background-color: var(--surface-4);
+  border: 1px solid var(--line);
   padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  color: #ececf1;
+  border-radius: var(--r-lg) var(--r-lg) var(--r-xs) var(--r-lg);
+  color: var(--text-primary);
   line-height: 1.5;
   font-size: 0.9375rem;
   max-width: 85%;
@@ -35,7 +36,7 @@
 
 .assistant-message .message-text {
   flex: 1;
-  color: #d1d5db;
+  color: var(--text-secondary);
   line-height: 1.75;
   font-size: 0.9375rem;
   padding-top: 0.25rem;
@@ -62,31 +63,32 @@
 
 .message-text strong {
   font-weight: 600;
-  color: #ececf1;
+  color: var(--text-primary);
 }
 
 .message-text a {
-  color: #5170FF;
+  color: var(--accent);
   text-decoration: underline;
   text-decoration-color: rgba(81, 112, 255, 0.3);
 }
 
 .message-text a:hover {
-  text-decoration-color: #5170FF;
+  text-decoration-color: var(--accent);
 }
 
 .message-text code {
   background-color: rgba(255, 255, 255, 0.1);
   padding: 0.125rem 0.25rem;
-  border-radius: 0.25rem;
-  font-size: 0.875rem;
-  font-family: 'Courier New', monospace;
+  border-radius: var(--r-xs);
+  font-size: 0.8125rem;
+  font-family: var(--font-mono);
 }
 
 .message-text pre {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--surface-0);
+  border: 1px solid var(--line-subtle);
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--r-md);
   overflow-x: auto;
   margin: 1rem 0;
 }

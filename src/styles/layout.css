@@ -11,7 +11,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #181818;
+  background-color: var(--surface-1);
   overflow-y: auto;
   overflow-x: hidden;
   position: relative;
@@ -23,35 +23,39 @@
 
 .main-content.sidebar-open {
   margin-left: 260px;
-  background-color: #212121;
+  background-color: var(--surface-2);
 }
 
 .main-content.sidebar-closed {
   margin-left: 0;
-  background-color: #181818;
+  background-color: var(--surface-1);
 }
 
 .sidebar-toggle-btn {
   position: fixed;
   top: 1rem;
   left: 1rem;
-  background-color: #181818;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #8e8ea0;
+  background-color: rgba(24, 24, 24, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  color: var(--text-muted);
   cursor: pointer;
   padding: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
-  transition: background-color 0.2s, color 0.2s, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--dur) var(--ease), color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease), transform var(--dur-slow) var(--ease);
   font-size: 1.25rem;
   z-index: 99;
 }
 
 .sidebar-toggle-btn:hover {
-  background-color: #2f2f3a;
-  color: #ececf1;
+  background-color: var(--surface-3);
+  color: var(--text-primary);
 }
 
 .scroll-to-bottom-btn {
@@ -61,23 +65,24 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: #5170FF;
+  background-color: var(--accent);
   border: none;
   color: white;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s;
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--dur) var(--ease),
+    transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
   z-index: 100;
   font-size: 1.5rem;
 }
 
 .scroll-to-bottom-btn:hover {
-  background-color: #6b85ff;
+  background-color: var(--accent-bright);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px -6px rgba(81, 112, 255, 0.6);
 }
 
 .scroll-to-bottom-btn:active {
@@ -88,7 +93,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  color: #8e8ea0;
+  color: var(--text-muted);
   text-decoration: none;
   font-size: 0.875rem;
   margin-bottom: 1.5rem;
@@ -96,7 +101,7 @@
 }
 
 .back-link:hover {
-  color: #ececf1;
+  color: var(--text-primary);
 }
 
 /* Mobile */
@@ -110,22 +115,25 @@
     position: fixed;
     top: 1rem;
     left: 1rem;
-    background-color: #181818;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #ececf1;
+    background-color: rgba(24, 24, 24, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--line);
+    color: var(--text-primary);
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.5rem;
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-md);
     z-index: 150;
     transition: background-color 0.2s, color 0.2s;
   }
 
   .mobile-hamburger-btn:hover {
-    background-color: #2f2f3a;
+    background-color: var(--surface-3);
   }
 
   .main-content {

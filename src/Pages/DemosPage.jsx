@@ -79,7 +79,7 @@ const DemosPage = () => {
             <ChatMessage role="user" content="Can you show me some demo videos of Dhruv's work?" />
             <ChatMessage role="assistant" content={introMessage} />
 
-            <div className="demos-grid">
+            <div className="demos-grid rise-stagger">
               {demosData.map((demo, index) => (
                 <div key={index} className="demo-card">
                   <div className="demo-card-content">

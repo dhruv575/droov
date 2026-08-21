@@ -1,131 +1,91 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import projectsData from '../../Data/projects.json';
-import chatsData from '../../Data/chats.json';
-import researchData from '../../Data/research.json';
-import demosData from '../../Data/demos.json';
+import { keywordSearch } from '../../lib/searchCorpus';
+import { aiSearch } from '../../lib/aiSearch';
 import './SearchBar.css';
 
-const SearchBar = ({ placeholder = "Ask anything" }) => {
+const MIN_AI_LENGTH = 3;
+const AI_DEBOUNCE_MS = 550;
+
+/** Build a snippet around the first lexical hit, for the instant results. */
+function buildSnippet(item, query) {
+  const content = item.content || '';
+  const lowerQuery = query.toLowerCase().trim();
+  const matchIndex = content.toLowerCase().indexOf(lowerQuery);
+
+  if (matchIndex === -1) {
+    const snippet = content.length > 150 ? `${content.slice(0, 150)}...` : content;
+    return { snippet, matchIndex: -1, matchLength: lowerQuery.length };
+  }
+
+  const start = Math.max(0, matchIndex - 60);
+  const end = Math.min(content.length, matchIndex + lowerQuery.length + 90);
+  const prefix = start > 0 ? '...' : '';
+  const suffix = end < content.length ? '...' : '';
+  const snippet = `${prefix}${content.slice(start, end)}${suffix}`;
+
+  return {
+    snippet,
+    matchIndex: snippet.toLowerCase().indexOf(lowerQuery),
+    matchLength: lowerQuery.length
+  };
+}
+
+const SearchBar = ({ placeholder = 'Ask anything' }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [results, setResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
-  const [isMobile, setIsMobile] = useState(false);
+  const [ai, setAi] = useState({ status: 'idle', answer: '', results: [], error: '' });
+
   const searchRef = useRef(null);
-  const resultsRef = useRef(null);
+  const abortRef = useRef(null);
   const navigate = useNavigate();
 
-  // Detect mobile and handle viewport changes
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+  const keywordResults = useMemo(() => keywordSearch(searchQuery), [searchQuery]);
+
+  // AI results when we have them, instant lexical results until then.
+  const displayed = useMemo(() => {
+    if (ai.status === 'done' && ai.results.length > 0) {
+      return ai.results.map(({ item, reason }) => ({ item, reason }));
+    }
+    return keywordResults.map((item) => ({ item, reason: null }));
+  }, [ai, keywordResults]);
+
+  const runAiSearch = useCallback(async (query) => {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    setAi({ status: 'loading', answer: '', results: [], error: '' });
+    try {
+      const payload = await aiSearch(query, { signal: controller.signal });
+      if (controller.signal.aborted) return;
+      setAi({
+        status: 'done',
+        answer: payload.answer,
+        results: payload.results,
+        error: ''
+      });
+    } catch (err) {
+      if (controller.signal.aborted || err?.name === 'AbortError') return;
+      setAi({ status: 'error', answer: '', results: [], error: err.message });
+    }
   }, []);
 
-  // Resume content - mirrors the actual ResumePage content
-  const resumeContent = {
-    type: 'resume',
-    title: 'Resume',
-    content: `University of Pennsylvania graduating May 2027 Bachelors of Engineering in Artificial Intelligence 3.97 GPA topped courses Big Data Analytics Linear Algebra for ML AI. Jane Street Strategy and Product Intern New York May 2026 to August 2026. Polymarket data-driven journalism team built market-fetching html email-generation tool powering daily market insights newsletter 200000 users led to 1 million in deposits. Morgan Stanley Fixed Income Quant Intern New York developed XGBoost models predicting month-by-month mortgage prepayment default loan level wrote script calculate cashflows loan pools production billion annual lending mortgage backed securities. Ryval Founding Applied Mathematician dynamically shifting odds-pricing algorithm spot betting Twitch streams ensure 10 percent profit web socket server live bet limit odd updates. University of Pennsylvania Teaching Assistant Linear Algebra for ML AI. Venture Camp SWE Intern building mini version of Clay. Hack4Impact co-director leading 40 engineers build software nonprofit organizations led projects Fulfill NJ Baldwin School alumni relations. Signal Society website. WhartonGRC VP of Finance. Daily Pennsylvanian head of entrepreneurship. Comma Capital fellow.`
-  };
-
-  // Combine all searchable items
-  const allItems = [
-    resumeContent,
-    ...projectsData.map(item => ({ ...item, type: 'project', title: item.name, content: item.desc })),
-    ...chatsData.map(item => ({ ...item, type: 'chat', title: item.title, content: item.description })),
-    ...researchData.map(item => ({ ...item, type: 'research', title: item.title, content: item.description })),
-    ...demosData.map(item => ({ ...item, type: 'demo', title: item.name, content: item.description }))
-  ];
-
-  const searchItems = (query) => {
-    if (!query.trim()) {
-      setResults([]);
-      return;
+  // Debounced AI pass; the lexical results are already on screen meanwhile.
+  useEffect(() => {
+    const query = searchQuery.trim();
+    if (query.length < MIN_AI_LENGTH) {
+      abortRef.current?.abort();
+      setAi({ status: 'idle', answer: '', results: [], error: '' });
+      return undefined;
     }
 
-    const lowerQuery = query.toLowerCase().trim();
-    const matches = [];
+    const timer = setTimeout(() => runAiSearch(query), AI_DEBOUNCE_MS);
+    return () => clearTimeout(timer);
+  }, [searchQuery, runAiSearch]);
 
-    allItems.forEach(item => {
-      const titleLower = item.title.toLowerCase();
-      const contentLower = item.content.toLowerCase();
-      
-      // Check if query matches title or content
-      const titleMatch = titleLower.includes(lowerQuery);
-      const contentMatch = contentLower.includes(lowerQuery);
-      
-      if (titleMatch || contentMatch) {
-        let snippet = '';
-        let snippetMatchIndex = -1;
-        
-        if (contentMatch) {
-          // Find the first occurrence of the query in content
-          const matchIndex = contentLower.indexOf(lowerQuery);
-          
-          if (matchIndex !== -1) {
-            // Split content into words to get word boundaries
-            const words = item.content.split(/(\s+)/);
-            let charCount = 0;
-            let matchWordStart = -1;
-            let matchWordEnd = -1;
-            
-            // Find which words contain the match
-            for (let i = 0; i < words.length; i++) {
-              const word = words[i];
-              const wordStart = charCount;
-              const wordEnd = charCount + word.length;
-              
-              if (matchIndex >= wordStart && matchIndex < wordEnd) {
-                matchWordStart = i;
-              }
-              if (matchIndex + lowerQuery.length > wordStart && matchIndex + lowerQuery.length <= wordEnd) {
-                matchWordEnd = i;
-                break;
-              }
-              
-              charCount += word.length;
-            }
-            
-            if (matchWordStart !== -1) {
-              // Get up to 5 words before and after
-              const startIndex = Math.max(0, matchWordStart - 10); // 10 because words array includes spaces
-              const endIndex = Math.min(words.length, matchWordEnd + 10);
-              
-              snippet = words.slice(startIndex, endIndex).join('');
-              const snippetLower = snippet.toLowerCase();
-              snippetMatchIndex = snippetLower.indexOf(lowerQuery);
-            }
-          }
-        }
-        
-        // If no snippet found or only title matches, use first part of description
-        if (!snippet || snippetMatchIndex === -1) {
-          snippet = item.content.substring(0, 150);
-          if (item.content.length > 150) snippet += '...';
-          snippetMatchIndex = snippet.toLowerCase().indexOf(lowerQuery);
-        }
-        
-        matches.push({
-          ...item,
-          snippet: snippet.trim(),
-          snippetMatchIndex: snippetMatchIndex >= 0 ? snippetMatchIndex : -1,
-          matchLength: lowerQuery.length
-        });
-      }
-    });
-
-    setResults(matches.slice(0, 10)); // Limit to 10 results
-  };
-
-  useEffect(() => {
-    searchItems(searchQuery);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery]);
+  useEffect(() => () => abortRef.current?.abort(), []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -133,75 +93,68 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
         setShowResults(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleInputChange = (e) => {
-    setSearchQuery(e.target.value);
-    setShowResults(true);
-    setSelectedIndex(-1);
-  };
-
-  const handleInputFocus = () => {
-    setShowResults(true);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setSelectedIndex(prev => 
-        prev < results.length - 1 ? prev + 1 : prev
-      );
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setSelectedIndex(prev => prev > 0 ? prev - 1 : -1);
-    } else if (e.key === 'Enter' && selectedIndex >= 0 && results[selectedIndex]) {
-      handleItemClick(results[selectedIndex]);
-    } else if (e.key === 'Escape') {
-      setShowResults(false);
-    }
-  };
-
   const handleItemClick = (item) => {
-    if (item.type === 'resume') {
-      navigate('/resume');
-    } else if (item.type === 'project') {
-      window.open(item.link, '_blank', 'noopener,noreferrer');
-    } else if (item.type === 'chat') {
-      navigate(`/chats/${(item.chatTitle || item.title).replace(/\s+/g, '-').toLowerCase()}`);
-    } else if (item.type === 'research') {
-      navigate(`/research/${(item.chatTitle || item.title).replace(/\s+/g, '-').toLowerCase()}`);
-    } else if (item.type === 'demo') {
-      navigate(`/demos/${item.title.replace(/\s+/g, '-').toLowerCase()}`);
+    if (!item.href) return;
+    if (item.external) {
+      window.open(item.href, '_blank', 'noopener,noreferrer');
+    } else {
+      navigate(item.href);
     }
     setShowResults(false);
     setSearchQuery('');
   };
 
-  const highlightSnippet = (snippet, matchIndex, matchLength, query) => {
-    if (matchIndex === -1) {
-      return <span className="snippet-text">{snippet}</span>;
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev < displayed.length - 1 ? prev + 1 : prev));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : -1));
+    } else if (e.key === 'Enter') {
+      if (selectedIndex >= 0 && displayed[selectedIndex]) {
+        handleItemClick(displayed[selectedIndex].item);
+      } else if (searchQuery.trim().length >= MIN_AI_LENGTH) {
+        // Enter asks immediately rather than waiting out the debounce.
+        e.preventDefault();
+        runAiSearch(searchQuery.trim());
+      }
+    } else if (e.key === 'Escape') {
+      setShowResults(false);
     }
+  };
 
-    const before = snippet.substring(0, matchIndex);
-    const match = snippet.substring(matchIndex, matchIndex + matchLength);
-    const after = snippet.substring(matchIndex + matchLength);
+  const highlightSnippet = (item) => {
+    const { snippet, matchIndex, matchLength } = buildSnippet(item, searchQuery);
+    if (matchIndex === -1) return <span className="snippet-text">{snippet}</span>;
 
     return (
       <span className="snippet-text">
-        {before}
-        <span className="snippet-match">{match}</span>
-        {after}
+        {snippet.slice(0, matchIndex)}
+        <span className="snippet-match">{snippet.slice(matchIndex, matchIndex + matchLength)}</span>
+        {snippet.slice(matchIndex + matchLength)}
       </span>
     );
   };
 
+  const hasQuery = searchQuery.trim().length > 0;
+
   return (
     <div className="search-wrapper" ref={searchRef}>
       <div className="search-bar">
-        <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg
+          className="search-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
           <circle cx="11" cy="11" r="8"></circle>
           <path d="m21 21-4.35-4.35"></path>
         </svg>
@@ -210,34 +163,77 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
           placeholder={placeholder}
           className="search-input"
           value={searchQuery}
-          onChange={handleInputChange}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setShowResults(true);
+            setSelectedIndex(-1);
+          }}
           onKeyDown={handleKeyDown}
-          onFocus={handleInputFocus}
+          onFocus={() => setShowResults(true)}
+          aria-label="Search this site"
         />
+        {ai.status === 'loading' && <span className="search-spinner" aria-hidden="true" />}
       </div>
-      {showResults && searchQuery.trim() && (
-        <div className="search-results" ref={resultsRef}>
-          {results.length > 0 ? (
-            results.map((item, index) => (
-              <div
-                key={`${item.type}-${index}`}
-                className={`search-result-item ${selectedIndex === index ? 'selected' : ''}`}
-                onClick={() => handleItemClick(item)}
-                onMouseEnter={() => setSelectedIndex(index)}
-              >
-                <div className="result-title">
-                  <strong>{item.title}</strong>
-                </div>
-                <div className="result-snippet">
-                  {highlightSnippet(item.snippet, item.snippetMatchIndex, item.matchLength, searchQuery)}
-                </div>
-                <div className="result-type">{item.type}</div>
+
+      {showResults && hasQuery && (
+        <div className="search-results">
+          {/* AI answer */}
+          {ai.status === 'loading' && (
+            <div className="search-answer search-answer-loading">
+              <div className="search-answer-head">
+                <span className="answer-badge">Answer</span>
+                <span className="answer-status">thinking…</span>
               </div>
-            ))
-          ) : (
-            <div className="search-no-results">
-              No results for "{searchQuery}"
+              <div className="shimmer answer-skeleton-line" />
+              <div className="shimmer answer-skeleton-line short" />
             </div>
+          )}
+
+          {ai.status === 'done' && ai.answer && (
+            <div className="search-answer">
+              <div className="search-answer-head">
+                <span className="answer-badge">Answer</span>
+              </div>
+              <p className="search-answer-text">{ai.answer}</p>
+            </div>
+          )}
+
+          {ai.status === 'error' && (
+            <div className="search-answer search-answer-error">
+              <div className="search-answer-head">
+                <span className="answer-badge answer-badge-muted">Answer unavailable</span>
+              </div>
+              <p className="search-answer-text">{ai.error}</p>
+            </div>
+          )}
+
+          {/* Results */}
+          {displayed.length > 0 ? (
+            <>
+              <div className="search-results-label">
+                {ai.status === 'done' && ai.results.length > 0 ? 'Best matches' : 'Matches'}
+              </div>
+              {displayed.map(({ item, reason }, index) => (
+                <div
+                  key={item.id}
+                  className={`search-result-item ${selectedIndex === index ? 'selected' : ''}`}
+                  onClick={() => handleItemClick(item)}
+                  onMouseEnter={() => setSelectedIndex(index)}
+                >
+                  <div className="result-title">
+                    <strong>{item.title}</strong>
+                  </div>
+                  <div className="result-snippet">
+                    {reason ? <span className="result-reason">{reason}</span> : highlightSnippet(item)}
+                  </div>
+                  <div className="result-type">{item.type}</div>
+                </div>
+              ))}
+            </>
+          ) : (
+            ai.status !== 'loading' && (
+              <div className="search-no-results">No results for &quot;{searchQuery}&quot;</div>
+            )
           )}
         </div>
       )}
@@ -246,4 +242,3 @@ const SearchBar = ({ placeholder = "Ask anything" }) => {
 };
 
 export default SearchBar;
-

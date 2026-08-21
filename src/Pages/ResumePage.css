@@ -1,11 +1,9 @@
 .resume-page {
   display: flex;
   min-height: 100vh;
-  background-color: #212121;
-  color: #ececf1;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: var(--surface-2);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
   overflow-x: hidden;
   position: relative;
 }
