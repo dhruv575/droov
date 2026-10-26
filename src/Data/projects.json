@@ -1,5 +1,26 @@
 [
     {
+        "name": "Cosign",
+        "desc": "Building a professional reputation network: profiles and endorsements, company pages, jobs, feeds, messaging, and curated network maps. My work spans the web product and iOS client, Ask Cosign network search, agent integrations and private memory, interactive ecosystem dashboards, and product launch videos.",
+        "tech": [
+            "Next.js",
+            "TypeScript",
+            "Convex",
+            "React Native",
+            "Expo",
+            "MCP",
+            "Data visualization"
+        ],
+        "link": "https://cosign.co/",
+        "visual": {
+            "scene": "cosign-network",
+            "bg": "#f5f5f5",
+            "ink": "#171717",
+            "accent": "#555555"
+        },
+        "domain": "professional networks"
+    },
+    {
         "name": "MTS",
         "desc": "The public web app and backend for MTS, a livestreamed news and talk show on X. A Cloudflare Worker owns the database, signs JWTs for the admin UI, proxies the X live-broadcast API, mirrors a Discord channel into the home-page chat, and runs crons that refresh feeds and the show calendar.",
         "tech": [
@@ -22,7 +43,7 @@
     },
     {
         "name": "877UNMPLYD",
-        "desc": "Site and data platform for a live call-in show about unemployment. A Worker ingests seven public datasets into D1 each week, feeding an interactive map of 72 cities that ranks real median wage — wages divided by local price parity — so Oklahoma City outranks Los Angeles.",
+        "desc": "Site and data platform for a live call-in show about unemployment. A Worker ingests seven public datasets into D1 each week, feeding an interactive map of 72 cities that ranks real median wage \u00e2\u20ac\u201d wages divided by local price parity \u00e2\u20ac\u201d so Oklahoma City outranks Los Angeles.",
         "tech": [
             "React",
             "TypeScript",
@@ -43,7 +64,7 @@
     },
     {
         "name": "Uncertainty Labs",
-        "desc": "Bayesian state-space models that estimate what prices are actually worth under uncertainty, using microstructure — volume, spread, orderbook depth — to quantify observation noise. First product is Polyscope: a Student-t state-space model on Polymarket orderbooks producing three-day probabilistic forecasts, backed by a Rust implementation of the WALNUTS sampler.",
+        "desc": "Bayesian state-space models that estimate what prices are actually worth under uncertainty, using microstructure \u00e2\u20ac\u201d volume, spread, orderbook depth \u00e2\u20ac\u201d to quantify observation noise. First product is Polyscope: a Student-t state-space model on Polymarket orderbooks producing three-day probabilistic forecasts, backed by a Rust implementation of the WALNUTS sampler.",
         "tech": [
             "Rust",
             "Python",
@@ -64,7 +85,7 @@
     },
     {
         "name": "CONDITIONAL",
-        "desc": "An AI-native prediction market platform built on the thesis that information buyers, not bettors, should subsidize liquidity — and that prices must stay private, since public signals are worthless to sophisticated buyers. Eleven subsystems spanning forecasting agents, a trusted-execution layer, and private and public research intake.",
+        "desc": "An AI-native prediction market platform built on the thesis that information buyers, not bettors, should subsidize liquidity \u00e2\u20ac\u201d and that prices must stay private, since public signals are worthless to sophisticated buyers. Eleven subsystems spanning forecasting agents, a trusted-execution layer, and private and public research intake.",
         "tech": [
             "Next.js",
             "Python",
@@ -204,7 +225,7 @@
     },
     {
         "name": "Search Every Exhibit",
-        "desc": "An MTS drop offering semantic search across all 199 trial-admitted exhibits in OpenAI v. Musk — emails, journal pages, contracts, screenshots — each rendered in a form-factor viewer that matches the original document.",
+        "desc": "An MTS drop offering semantic search across all 199 trial-admitted exhibits in OpenAI v. Musk \u00e2\u20ac\u201d emails, journal pages, contracts, screenshots \u00e2\u20ac\u201d each rendered in a form-factor viewer that matches the original document.",
         "tech": [
             "Next.js",
             "React",
@@ -222,7 +243,7 @@
     },
     {
         "name": "Inside the AI Grey Market",
-        "desc": "An MTS drop tracing 1,000 ex-employee shares through three layers of SPVs to 47 retail-accredited LPs at a 39 percent cumulative premium — nine self-paced steps ending at the announcement that voided every unauthorized secondary transfer.",
+        "desc": "An MTS drop tracing 1,000 ex-employee shares through three layers of SPVs to 47 retail-accredited LPs at a 39 percent cumulative premium \u00e2\u20ac\u201d nine self-paced steps ending at the announcement that voided every unauthorized secondary transfer.",
         "tech": [
             "Next.js",
             "React",
@@ -259,7 +280,7 @@
     },
     {
         "name": "Why AI's Water Problem Is Overblown",
-        "desc": "An MTS drop auditing the viral \"500 mL per query\" figure, which conflated per-conversation with per-prompt on stale 2022 hardware. A bottom-up accounting lands at roughly 3 mL — about a sip — and puts a single hamburger at two million prompts.",
+        "desc": "An MTS drop auditing the viral \"500 mL per query\" figure, which conflated per-conversation with per-prompt on stale 2022 hardware. A bottom-up accounting lands at roughly 3 mL \u00e2\u20ac\u201d about a sip \u00e2\u20ac\u201d and puts a single hamburger at two million prompts.",
         "tech": [
             "Next.js",
             "React",

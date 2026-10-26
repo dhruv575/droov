@@ -10,13 +10,13 @@ import './ProjectsPage.css';
 /**
  * Projects.
  *
- * Five pinned projects cycle through a sticky stage on a timer. Clicking a row
+ * Featured projects cycle through a sticky stage on a timer. Clicking a row
  * holds that project and stops the cycle; clicking it again releases it.
  * Hovering deliberately does nothing — the rotation stays predictable.
  * Everything else sits in a grid below the divider.
  */
 
-const PINNED = ['MTS', 'CONDITIONAL', 'Uncertainty Labs', 'The Spread', '877UNMPLYD'];
+const PINNED = ['Cosign', 'MTS', 'CONDITIONAL', 'Uncertainty Labs', 'The Spread', '877UNMPLYD'];
 const ROTATE_MS = 6000;
 
 const prefersReducedMotion = () =>
@@ -139,11 +139,11 @@ const ProjectsPage = () => {
               <ChatMessage role="user" content="What has Dhruv built?" />
               <ChatMessage
                 role="assistant"
-                content="Prediction market tools, AI products, data analysis, and web apps. These five cycle on their own — click one to hold it — and everything else is below."
+                content="Cosign, prediction market tools, AI products, and interactive data stories. The featured projects cycle on their own — click one to hold it — and everything else is below."
               />
             </div>
 
-            {/* Pinned five. */}
+            {/* Featured projects. */}
             <div className="pj-rack">
               <aside className="pj-stage">
                 <div className="pj-stage-frame">

@@ -308,7 +308,23 @@ const SipVsBottle = () => (
   </g>
 );
 
+const CosignNetwork = () => (
+  <g stroke="var(--pv-ink)" strokeWidth=".8">
+    {[[32,30],[72,22],[145,28],[162,76],[115,91],[48,83]].map(([x,y],i) => (
+      <g key={i}>
+        <path d={`M96 55 L${x} ${y}`} opacity=".25" />
+        <rect x={x-7} y={y-7} width="14" height="14" rx="3" fill="var(--pv-bg)" />
+        <circle cx={x} cy={y-2} r="2" fill="var(--pv-ink)" stroke="none" />
+        <path d={`M${x-3} ${y+4} Q${x} ${y} ${x+3} ${y+4}`} fill="none" />
+      </g>
+    ))}
+    <rect x="80" y="39" width="32" height="32" rx="7" fill="var(--pv-ink)" />
+    <path d="M87 55 L93 61 L105 49" stroke="var(--pv-bg)" strokeWidth="2" fill="none" />
+  </g>
+);
+
 const SCENES = {
+  'cosign-network': CosignNetwork,
   'mts-hud': MtsHud,
   'wage-map': WageMap,
   posterior: Posterior,

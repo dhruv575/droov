@@ -42,7 +42,11 @@ const ResumePage = () => {
 
   const educationContent = `Dhruv will be graduating from the **University of Pennsylvania** in May 2027 with a Bachelors of Engineering in **Artificial Intelligence**. He has a 3.96 GPA, and his coursework runs through Data Structures and Algorithms, Big Data Analytics, Linear Algebra for ML & AI, and Optimization.`;
 
-  const workExperienceContent = `He spent the summer of 2026 at **Jane Street** in New York as a **Strategy and Product** Intern, building systems that enabled new trading-related workflows across the options desk and the finance team.
+  const workExperienceContent = `His current work is on **[Cosign](https://cosign.co/)**, a professional reputation network. He is building across the web product and iOS client: profiles and endorsements, company pages, jobs, feeds, messaging, and curated network maps.
+
+  That work also includes **Ask Cosign** network search, **MCP and developer API integrations**, private memory for agents, interactive ecosystem dashboards with shareable charts, and product launch videos.
+
+  He spent the summer of 2026 at **Jane Street** in New York as a **Strategy and Product** Intern, building systems that enabled new trading-related workflows across the options desk and the finance team.
 
   In the month before Jane Street, he built out all of the technology behind **[MTS](https://www.mts.now/)**, a livestreamed news and talk show. That included coming up with the **[Drops](https://drops.mts.now/)** paradigm — one-off, high-craft interactive briefings, each made for a specific audience — which led directly to sponsorships from **NVIDIA** and **Lovable**.
 

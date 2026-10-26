@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Typewriter from '../Components/Typewriter';
 import Sidebar from '../Components/General/Sidebar';
 import SearchBar from '../Components/Search/SearchBar';
+import PixelField from '../Components/Home/PixelField';
 import { useIsMobile } from '../hooks/useIsMobile';
 import {
   HiOutlineMenu,
@@ -26,7 +26,7 @@ const CARDS = [
     to: '/projects',
     icon: HiOutlineCube,
     title: 'Projects',
-    description: 'Explore my technical projects and data science work',
+    description: 'Cosign, prediction markets, and other things I build',
     accent: 'teal'
   },
   {
@@ -80,15 +80,11 @@ const NewHome = () => {
             <HiOutlineMenu />
           </button>
         )}
+        <PixelField />
         <div className="content-wrapper">
           {/* Typewriter Header */}
           <div className="typewriter-header">
-            <div className="typewriter-line1">
-              <Typewriter text="Dhruv Gupta" />
-            </div>
-            <div className="typewriter-line2">
-              <Typewriter text="Penn, Jane Street, Morgan Stanley, Polymarket, MTS" />
-            </div>
+            <h1 className="typewriter-line1">Dhruv Gupta</h1>
           </div>
 
           {/* Search Bar */}

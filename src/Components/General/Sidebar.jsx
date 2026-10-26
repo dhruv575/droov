@@ -15,7 +15,6 @@ import {
   FaTiktok,
   FaInstagram
 } from 'react-icons/fa';
-import logo from './logo-rect.png';
 import './Sidebar.css';
 
 // Simple X (Twitter) icon component
@@ -62,8 +61,8 @@ const Sidebar = ({ isOpen, onToggle }) => {
       )}
       <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
-          <Link to="/">
-            <img src={logo} alt="Logo" className="sidebar-logo" />
+          <Link to="/" className="droov-wordmark" aria-label="Droov home">
+            Droov<i aria-hidden="true" />
           </Link>
           <button 
             className="sidebar-close-btn"

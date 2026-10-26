@@ -19,7 +19,7 @@ const UpdatesPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const introMessage = `These are Dhruv's quarterly dispatches — personal updates sent to mentors, professors, investors, and people he admires. Each one covers what he's been building, what he needs help with, and where things are headed.`;
+  const introMessage = `Dhruv's quarterly dispatches on what he's building and learning.`;
 
   return (
     <div className="updates-page">
